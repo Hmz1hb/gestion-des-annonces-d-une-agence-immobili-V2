@@ -21,10 +21,13 @@ padding-right: .75em;
 .card-registration .select-arrow {
 top: 13px;
 }
+body{
+  background-color: #55595c ;
+}
   </style>
 </head>
 <body>
-  <form class="h-100" style="background-color: #55595c ;"method="POST" action="signup.php">
+  <form class="h-100"method="POST" action="signup.php">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col">
@@ -90,36 +93,30 @@ top: 13px;
   </div>
 </form>
 <?php
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
-
-// Connect to the database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "gestion-des-annonces-d-une-agence-immobili-re";
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
-// Get form data
+ob_start();
+// Redirect to member page if no error occurs
 if (isset($_POST['submit'])) {
+  // Connect to the database
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "gestion-des-annonces-d-une-agence-immobili-re";
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  // Get form data
   $name = test_input($_POST['Name_Inp']);
   $last_name = test_input($_POST['Last_Name_Inp']);
   $email = test_input($_POST['Email_Inp']);
   $password = test_input($_POST['Password_Inp']);
   $password_confirm = test_input($_POST['Password_Confirm_Inp']);
   $telephone = test_input($_POST['Telephone_Inp']);
-  
-  // Check if password and password confirmation match
+
+  // Verify passwords match
   if ($password !== $password_confirm) {
-    echo "Error: Password and Password Confirmation do not match.";
-    exit;
+    exit(); // Terminate the script
   }
 
   // Prepare and execute SQL query
@@ -129,16 +126,25 @@ if (isset($_POST['submit'])) {
 
   // Check if the query was successful
   if ($stmt->affected_rows > 0) {
-    echo "New record created successfully.";
+    // Redirect to member page
+    header("Location: ../Page Membre/member.php");
+    exit(); // Terminate the script
   } else {
-    echo "Error: " . $stmt->error;
+    exit(); // Terminate the script
   }
 
   // Close the database connection
   $stmt->close();
+  $conn->close();
 }
-$conn->close();
 
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+ob_end_flush();
 ?>
 
 
