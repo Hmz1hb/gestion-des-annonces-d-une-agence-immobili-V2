@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js" defer></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet"/>
   <style>
     .card-registration .select-input.form-control[readonly]:not([disabled]) {
@@ -23,7 +24,7 @@ top: 13px;
   </style>
 </head>
 <body>
-  <form class="h-100" style="background-color: #55595c ;">
+  <form class="h-100" style="background-color: #55595c ;"method="POST" action="signup.php">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col">
@@ -42,67 +43,43 @@ top: 13px;
                 <div class="row">
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
-                      <input type="text" id="Name_Inp" class="form-control form-control-lg" required />
+                      <input name="Name_Inp" type="text" id="Name_Inp" class="form-control form-control-lg" required />
                       <label class="form-label" for="Name_Inp">First name</label>
                     </div>
                   </div>
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
-                      <input type="text" id="Last_Name_Inp" class="form-control form-control-lg" required />
+                      <input name="Last_Name_Inp" type="text" id="Last_Name_Inp" class="form-control form-control-lg" required />
                       <label class="form-label" for="Last_Name_Inp">Last name</label>
                     </div>
                   </div>
                 </div>
-                
-                <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
-
-                  <h6 class="mb-0 me-4">Gender: </h6>
-
-                  <div class="form-check form-check-inline mb-0 me-4">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
-                      value="option1" />
-                    <label class="form-check-label" for="femaleGender">Female</label>
-                  </div>
-
-                  <div class="form-check form-check-inline mb-0 me-4">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
-                      value="option2" />
-                    <label class="form-check-label" for="maleGender">Male</label>
-                  </div>
-
-                  <div class="form-check form-check-inline mb-0">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
-                      value="option3" />
-                    <label class="form-check-label" for="otherGender">Other</label>
-                  </div>
-
-                </div>
 
                 <div class="form-outline mb-4">
-                  <input type="date" id="Age_inp" class="form-control form-control-lg" required />
-                  <label class="form-label" for="Age_inp">Age</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <input type="email" id="Email_Inp" class="form-control form-control-lg" required/>
+                  <input name="Email_Inp" type="email" id="Email_Inp" class="form-control form-control-lg" required/>
                   <label class="form-label" for="Email_Inp">Email</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="Password_Inp" class="form-control form-control-lg" required />
+                  <input name="Telephone_Inp" type="tel" id="Telephone_Inp" class="form-control form-control-lg" required/>
+                  <label class="form-label" for="Telephone_Inp">Phone Number</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input name="Password_Inp" type="password" id="Password_Inp" class="form-control form-control-lg" required />
                   <label class="form-label" for="Password_Inp">Password</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="form3Example97" class="form-control form-control-lg"  required/>
-                  <label class="form-label" for="Password_Verfication_inp">Password Verification</label>
+                  <input type="password" id="Password_Confirm_Inp" name="Password_Confirm_Inp" class="form-control form-control-lg"  required/>
+                  <label class="form-label" for="Password_Confirm_Inp">Password Verification</label>
                 </div>
 
                 <div class="d-flex justify-content-end pt-3">
-                  <button type="submit" class="btn btn-danger btn-block">Sign Up</button>
+                  <button type="submit" name="submit" class="btn btn-danger btn-block">Sign Up</button>
                 </div>
                 <div class="text-center mt-3 small">
-										Already have an account? <a href="login.html">Sign In</a>
+										Already have an account? <a href="../login page/Log-in.php">Sign In</a>
 									</div>
               </div>
             </div>
@@ -112,9 +89,58 @@ top: 13px;
     </div>
   </div>
 </form>
-<script
-  type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"
-></script>
+<?php
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
+// Connect to the database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "gestion-des-annonces-d-une-agence-immobili-re";
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+// Get form data
+if (isset($_POST['submit'])) {
+  $name = test_input($_POST['Name_Inp']);
+  $last_name = test_input($_POST['Last_Name_Inp']);
+  $email = test_input($_POST['Email_Inp']);
+  $password = test_input($_POST['Password_Inp']);
+  $password_confirm = test_input($_POST['Password_Confirm_Inp']);
+  $telephone = test_input($_POST['Telephone_Inp']);
+  
+  // Check if password and password confirmation match
+  if ($password !== $password_confirm) {
+    echo "Error: Password and Password Confirmation do not match.";
+    exit;
+  }
+
+  // Prepare and execute SQL query
+  $stmt = $conn->prepare("INSERT INTO member (Nom_M, Prenom_M, Email_M, MembrePasse, TelephoneM) VALUES (?, ?, ?, ?, ?)");
+  $stmt->bind_param("sssss", $name, $last_name, $email, $password, $telephone);
+  $stmt->execute();
+
+  // Check if the query was successful
+  if ($stmt->affected_rows > 0) {
+    echo "New record created successfully.";
+  } else {
+    echo "Error: " . $stmt->error;
+  }
+
+  // Close the database connection
+  $stmt->close();
+}
+$conn->close();
+
+?>
+
+
 </body>
 </html>

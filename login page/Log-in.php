@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js" defer></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet"/>
   <style>
     .card-registration .select-input.form-control[readonly]:not([disabled]) {
@@ -53,7 +54,7 @@ top: 13px;
                   <button type="submit" class="btn btn-danger btn-block">Log In</button>
                 </div>
                 <div class="text-center mt-3 small">
-										Don't have an account? <a href="register.html">Sign Up</a>
+										Don't have an account? <a href="../sigh-up page/signup.php">Sign Up</a>
 									</div>
               </div>
             </div>
@@ -63,6 +64,5 @@ top: 13px;
     </div>
   </div>
 </form>
-<scrip type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></scrip>
 </body>
 </html>
