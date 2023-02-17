@@ -104,7 +104,7 @@ if (isset($_POST['email']) && isset($_POST['password']) ) {
             
 
         } catch (PDOException $e) {
-            $errorMessage = "Errorrr:" . $e->getMessage();
+            $errorMessage = "Error:" . $e->getMessage();
         }
     } 
 ?>
