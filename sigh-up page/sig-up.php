@@ -99,9 +99,11 @@ top: 13px;
                 </div>
 
                 <div class="d-flex justify-content-end pt-3">
-                  <button type="submit" class="btn btn-danger  btn-lg ms-2">Sign Up</button>
+                  <button type="submit" class="btn btn-danger btn-block">Sign Up</button>
                 </div>
-
+                <div class="text-center mt-3 small">
+										Already have an account? <a href="login.html">Sign In</a>
+									</div>
               </div>
             </div>
           </div>

@@ -44,10 +44,13 @@
         <a href="#" class="navbar-brand d-flex align-items-center">
           <img src="./img/boul-removebg-preview.png" alt="Boulvard" width="30%"  fill="none"> 
         </a>
+        <button"><i class="fa-solid fa-user-plus"></i></button>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fa-solid fa-bars" style="color: #55595c;"></i>
         </button>
       </div>
+
+      
     </div>
   </header>
 

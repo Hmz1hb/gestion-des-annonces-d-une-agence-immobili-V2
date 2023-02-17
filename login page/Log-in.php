@@ -50,9 +50,11 @@ top: 13px;
                 </div>
                 
                 <div class="d-flex justify-content-end pt-3">
-                  <button type="submit" class="btn btn-danger  btn-lg ms-2">Log In</button>
+                  <button type="submit" class="btn btn-danger btn-block">Log In</button>
                 </div>
-
+                <div class="text-center mt-3 small">
+										Don't have an account? <a href="register.html">Sign Up</a>
+									</div>
               </div>
             </div>
           </div>
