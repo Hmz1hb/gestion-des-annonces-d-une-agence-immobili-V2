@@ -14,7 +14,53 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="./style.css?v=<?php echo time(); ?>">
+<style>
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+
+  /*search box css start here*/
+.search-sec{
+    padding: 2rem;
+}
+.search-slt{
+    display: block;
+    width: 100%;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    height: calc(3rem + 2px) !important;
+    border-radius:0;
+}
+.wrn-btn{
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: capitalize;
+    height: calc(3rem + 2px) !important;
+    border-radius:0;
+}
+@media (min-width: 992px){
+    .search-sec{
+        position: relative;
+    }
+}
+
+</style>
 
 </head>
 
@@ -92,32 +138,11 @@
         <h2 style="color: #2d2d2d;">Announce title</h2>
        <p class="excert mt-5">
         Announce details here
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla aliquid eos cupiditate optio, quia accusantium vel illum expedita cum delectus ea dolorum quis natus, nobis deleniti, ipsam iste! Odio, reiciendis!
        </p>
-       <p>
-         MCSE boot camps have its supporters and its detractors. Some people do not understand why you
-         should have to spend money on boot camp when you can get the MCSE study materials yourself at a
-         fraction of the camp price. However, who has the willpower to actually sit through a
-         self-imposed MCSE training. who has the willpower to actually
-       </p>
-       <div class="quote-wrapper">
-         <div class="quotes">
-          MCSE boot camps have its supporters and its detractors. Some people do not understand why you
-          should have to spend money on boot camp when you can get the MCSE study materials yourself at
-          a fraction of the camp price. However, who has the willpower to actually sit through a
-          self-imposed MCSE training.
-        </div>
-      </div>
-      <p>
-       MCSE boot camps have its supporters and its detractors. Some people do not understand why you
-       should have to spend money on boot camp when you can get the MCSE study materials yourself at a
-       fraction of the camp price. However, who has the willpower
-     </p>
-     <p>
-       MCSE boot camps have its supporters and its detractors. Some people do not understand why you
-       should have to spend money on boot camp when you can get the MCSE study materials yourself at a
-       fraction of the camp price. However, who has the willpower to actually sit through a
-       self-imposed MCSE training. who has the willpower to actually
-     </p>
+      <h5 class="text-primary-emphasis">Address</h5>
+      
+      <h5 class="text-danger mt-5">PRIX DH</h5>
    </div>
  </div>
       </div>
