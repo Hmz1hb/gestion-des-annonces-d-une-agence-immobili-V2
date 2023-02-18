@@ -42,7 +42,9 @@ body{
                 </div>
                 <div class="col-xl-6">
                   <div class="card-body p-md-5 text-black">
-                  <img src="./Img/boul-removebg-preview.png" alt="" srcset="" width="30%" class="position-relative top-0 start-50 translate-middle pt-5">
+                  <a href="#" class="navbar-brand d-flex align-items-center">
+                    <img src="./Img/boul-removebg-preview.png" alt="" srcset="" width="30%" class="position-relative top-0 start-50 translate-middle pt-5"> 
+                  </a>
                     <h3 class="mb-5 text-center">Log In</h3>
 
                     <div class="form-outline mb-4">
