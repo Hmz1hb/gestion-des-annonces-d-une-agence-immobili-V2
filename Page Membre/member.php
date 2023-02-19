@@ -86,7 +86,7 @@
     </div>
     <div class="navbar navbar-dark bg-light shadow-sm">
       <div class="container">
-        <a href="./Guest.php" class="navbar-brand d-flex align-items-center">
+        <a href="./member.php" class="navbar-brand d-flex align-items-center">
           <img src="./img/boul-removebg-preview.png" alt="Boulvard" width="30%"  fill="none"> 
         </a>
         <a href="../login page/Log-in.php"><i class="fa-solid fa-circle-user"></i></a>

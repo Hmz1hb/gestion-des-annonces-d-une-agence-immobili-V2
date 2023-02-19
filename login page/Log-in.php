@@ -12,7 +12,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet"/>
-  <scrip type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></scrip>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js" defer></script>
+ 
   <style>
     .card-registration .select-input.form-control[readonly]:not([disabled]) {
 font-size: 1rem;
@@ -82,7 +83,7 @@ if (isset($_POST['email']) && isset($_POST['password']) ) {
     $password = $_POST['password'];
 
     try {
-            $conn = new PDO("mysql:host=localhost;dbname=gestionimmobilier;port=3306;charset=UTF8", 'root', '');
+            $conn = new PDO("mysql:host=localhost;dbname=gestion-des-annonces-d-une-agence-immobili-re;port=3306;charset=UTF8", 'root', '');
           
 
             $stmt = $conn->prepare("SELECT * FROM `member` WHERE `Email_M`=:Email and `MembrePasse`=:Pass");
@@ -97,7 +98,7 @@ if (isset($_POST['email']) && isset($_POST['password']) ) {
                 $_SESSION['user'] = $stmt->fetch();
             
                 // Rediriger l'utilisateur vers la page d'accueil
-               header("Location:http://localhost:8080/brief15/brief%2015/htdocs-1/sigh-up%20page/sig-up.php");
+               header("Location:http://localhost/Page%20Membre/member.php");
                
                 exit;
             } else {
