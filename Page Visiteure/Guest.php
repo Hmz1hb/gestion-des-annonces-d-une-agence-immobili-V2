@@ -86,10 +86,10 @@
     </div>
     <div class="navbar navbar-dark bg-light shadow-sm">
       <div class="container">
-        <a href="#" class="navbar-brand d-flex align-items-center">
+        <a href="./Guest.php" class="navbar-brand d-flex align-items-center">
           <img src="./img/boul-removebg-preview.png" alt="Boulvard" width="30%"  fill="none"> 
         </a>
-        <button"><i class="fa-solid fa-user-plus"></i></button>
+        <a href="../login page/Log-in.php"><i class="fa-solid fa-user-plus"></i></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fa-solid fa-bars" style="color: #55595c;"></i>
         </button>
@@ -101,7 +101,7 @@
 
   <main>
 
-    <section class="py-5 text-center container">
+  <section class="py-5 text-center container">
       <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
           <h1 class="font-weight-light">Experience Urban Living with Boulevard's Building Album</h1>
@@ -112,73 +112,86 @@
 
     <div class="album py-5 bg-light">
       <div class="container">
-
-             <section class="search-sec mb-5">
-            <div class="container">
-            <form action="index.php" method="post" novalidate="novalidate">
+        <section class="search-sec mb-5">
+          <div class="container">
+            <form action="" method="post" novalidate="novalidate">
               <div class="row">
-                  <div class="col-lg-12">
-                      <div class="row">
-                          <div class="col-lg-2 col-md-2 col-sm-12 p-0">
-                              <select name="type" class="form-control search-slt" id="exampleFormControlSelect1">
-                                  <option value="#">Rental or Sale</option>
-                                  <option value="Location">Rental</option>
-                                  <option value="vente">Sale</option>
-                              </select>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                              <input name="min_price" type="text" class="form-control search-slt" placeholder="Enter Minimal price">
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                              <input type="text" name="max_price" class="form-control search-slt" placeholder="Enter Maximal price">
-                          </div>
-                          <div class="col-lg-2 col-md-2 col-sm-12 p-0">
-                              <button type="submit" class="btn btn-danger wrn-btn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
-                          </div>
-                          <div class="col-lg-2 col-md-2 col-sm-12 p-0">
-                              <button type="button" class="btn btn-secondary wrn-btn" data-bs-toggle="modal" data-bs-target="#pub_modal"><i class="fa-solid fa-pen-to-square"></i> Sell</button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </form>
-
-
-            </div>
-        </section>
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
-          <div class="col">
-            <div class="card shadow-sm">
-              <img id="card_img" src="./images/appartement1.jpg" alt="1" width="100%" height="225" fill="none">
-              <div class="card-body">
-                <h4 id="card_title">Title</h4>
-                <h5 id="card_price" class="text-danger">PRIX DH</h5>
-                <p id="card_text" class="card-text">Card details</p>
-                <h5 id="annonce-type" class="text-danger">vante / location</h5>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" id="edit" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#edit_modal">Details</button>
+                <div class="col-lg-12">
+                  <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                      <select name="type" class="form-control search-slt" id="exampleFormControlSelect1">
+                        <option value="#">Rental or Sale</option>
+                        <option value="Location">Rental</option>
+                        <option value="vente">Sale</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                      <input name="min_price" type="text" class="form-control search-slt" placeholder="Enter Minimal price">
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                      <input type="text" name="max_price" class="form-control search-slt" placeholder="Enter Maximal price">
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                      <button type="submit" class="btn btn-danger wrn-btn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                      <button type="button" class="btn btn-secondary wrn-btn" data-bs-toggle="modal" data-bs-target="#pub_modal"><i class="fa-solid fa-pen-to-square"></i> Sell</button>
+                    </div>
                   </div>
                 </div>
               </div>
+            </form>
+          </div>
+        </section>
+        <?php
+  $test = "yes";
+
+
+  try {
+    $conn = new PDO("mysql:host=localhost;dbname=gestion-des-annonces-d-une-agence-immobili-re;port=3306;charset=UTF8", 'root', '');
+    // set the PDO error mode to exception
+
+    $content = $conn->query('SELECT `announcement`.`Announcement_ID` ,`Titre`,`Prix`,`Details`,`Type`,`ImageUrl` FROM `announcement`,`image` where `announcement`.`Announcement_ID`=`image`.`Announcement_ID` and `Image_P`="oui" ');
+
+
+    echo "<div class='container'>";
+    echo "<div class='row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3'>";
+    while ($ligne = $content->fetch()) {
+      echo '  <div class="col">
+      <div class="card shadow-sm">
+          <img id="card_img" src="' . $ligne['ImageUrl'] . '" alt="' . $ligne['Titre'] . '" width="100%" height="225" fill="none">
+          <div class="card-body">
+              <h4 id="card_title">' . $ligne['Titre'] . '</h4>
+              <h5 id="card_price" class="text-danger">' . $ligne['Prix'] . ' MAD</h5>
+              <p id="card_text" class="card-text">Card details</p>
+              <h5 id="annonce-type" class="text-danger">POUR : ' . $ligne['Type'] . '</h5>
+              <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                      <a href="details.php?id=' . $ligne['Announcement_ID'] . '" id="edit" class="btn btn-sm btn-outline-secondary">Details</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>';
+    }
+  } catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+  }
+
+
+  ?>
+        <!-- pub modal -->
+        <div class="modal fade" id="pub_modal" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-body">
+                <h6 class="text-center text-capitalize">Unlock the Full Potential of Real Estate Marketing with Boulevard: Join Us Today and Access Exclusive Features to Maximize Your Sales Efforts!</h6>
+                <br>
+                <button href="#" type="button" id="Join Us" class="btn btn-sm btn-outline-secondary position-relative top-100 start-50 translate-middle">Join Us Now</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-      <!-- pub modal -->
-      <div class="modal fade" id="pub_modal" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-body">
-              <h6 class="text-center text-capitalize">Unlock the Full Potential of Real Estate Marketing with Boulevard: Join Us Today and Access Exclusive Features to Maximize Your Sales Efforts!</h6>
-              <br>
-              <button href="" type="button" id="Join Us" class="btn btn-sm btn-outline-secondary position-relative top-100 start-50 translate-middle">Join Us Now</button>
-            </div>
-          </div>
-        </div>
-      </div>
   </main>
   <footer class="text-muted py-5">
     <div class="container">
@@ -186,7 +199,6 @@
         <a href="#"><i class="fa-solid fa-arrow-up" style="color: #55595c;"></i></a>
     </div>
   </footer>
-<script src="./java.js"></script>
 </body>
 
-</html> 
+</html>

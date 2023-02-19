@@ -9,10 +9,10 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet"/>
-  <script  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js" defer></script>
+  <scrip type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></scrip>
   <style>
     .card-registration .select-input.form-control[readonly]:not([disabled]) {
 font-size: 1rem;
@@ -41,9 +41,9 @@ body{
                     style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
                 </div>
                 <div class="col-xl-6">
-                  <div class="card-body p-md-5 text-black">
-                  <a href="#" class="navbar-brand d-flex align-items-center">
-                    <img src="./Img/boul-removebg-preview.png" alt="" srcset="" width="30%" class="position-relative top-0 start-50 translate-middle pt-5"> 
+                  <div class="card-body p-md-5 text-black mt-5">
+                  <a href="../Page Visiteure/Guest.php" class="navbar-brand d-flex align-items-center">
+                  <img src="./Img/boul-removebg-preview.png" alt="" srcset="" width="30%" class="position-relative top-0 start-50 translate-middle pt-5">
                   </a>
                     <h3 class="mb-5 text-center">Log In</h3>
 
@@ -97,16 +97,15 @@ if (isset($_POST['email']) && isset($_POST['password']) ) {
                 $_SESSION['user'] = $stmt->fetch();
             
                 // Rediriger l'utilisateur vers la page d'accueil
-                header("Location: index.php");
+               header("Location:http://localhost:8080/brief15/brief%2015/htdocs-1/sigh-up%20page/sig-up.php");
+               
                 exit;
             } else {
                 // Afficher un message d'erreur personnalisé selon le type d'erreur
                 $error = "Email ou mot de passe incorrect.";
-                echo $error;
+                echo "<div style='background-color: #55595c ;color:red'>". $error."</div>";
                 // ou $error = "Compte non activé."; ou $error = "Compte bloqué.";
             }
-            
-
         } catch (PDOException $e) {
             $errorMessage = "Error:" . $e->getMessage();
         }

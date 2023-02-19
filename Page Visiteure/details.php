@@ -87,10 +87,10 @@
     </div>
     <div class="navbar navbar-dark bg-light shadow-sm">
       <div class="container" id>
-        <a href="#" class="navbar-brand d-flex align-items-center">
+        <a href="./Guest.php" class="navbar-brand d-flex align-items-center">
           <img src="./img/boul-removebg-preview.png" alt="Boulvard" width="30%"  fill="none"> 
         </a>
-        <button"><i class="fa-solid fa-user-plus"></i></button>
+        <a href="../login page/Log-in.php"><i class="fa-solid fa-user-plus"></i></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fa-solid fa-bars" style="color: #55595c;"></i>
         </button>
@@ -101,39 +101,106 @@
   </header>
 
   <main>
-
-    <section class="py-5 text-center container">
-        <div id="carouselExampleCaptions" class="carousel slide">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="../img/appartement11.jpg" class="d-block w-100" alt="...">
+  <section class="py-5 text-center container">
+  <div id="carouselExampleCaptions" class="carousel slide">
+    <div class="carousel-indicators">
+      <?php
+      $servername = "localhost";
+      $username = "root";
+      $password = "";
+      $dbname = "gestion-des-annonces-d-une-agence-immobili-re";
+      $conn = new mysqli($servername, $username, $password, $dbname);
+      
+      if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+      }
+      // Retrieve the images for the announcement
+      $announcement_id = 1; // Replace with the actual announcement ID
+      $query = "SELECT * FROM image WHERE Announcement_ID = $announcement_id ORDER BY Image_P DESC";
+      $result = mysqli_query($conn, $query);
+      
+      // Generate the carousel indicators
+      $count = 0;
+      while ($row = mysqli_fetch_assoc($result)) {
+        $active = ($count == 0) ? 'active' : '';
+        echo '<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="' . $count . '" class="' . $active . '" aria-current="' . $active . '" aria-label="Slide ' . ($count+1) . '"></button>';
+        $count++;
+      }
+      ?>
     </div>
-    <div class="carousel-item">
-      <img src="../img/appartement12.jpg" class="d-block w-100" alt="...">
+    <div class="carousel-inner">
+      <?php
+      // Reset the result set pointer
+      mysqli_data_seek($result, 0);
+      
+      // Generate the carousel items
+      $count = 0;
+      while ($row = mysqli_fetch_assoc($result)) {
+        $active = ($count == 0) ? 'active' : '';
+        echo '<div class="carousel-item ' . $active . '">';
+        echo '<img src="' . $row['ImageUrl'] . '" class="d-block w-100" alt="...">';
+        echo '</div>';
+        $count++;
+      }
+      ?>
     </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-      </div>
-    </section>
+</section>
 
-    <div class="album py-5 bg-light">
+    <?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "gestion-des-annonces-d-une-agence-immobili-re";
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+$id = $_GET['id'];
+$sql = "SELECT * FROM announcement WHERE Announcement_ID = $id";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $titre = $row['Titre'] ?? '';
+    $details = $row['Details'] ?? '';
+    $prix = $row['Prix'] ?? '';
+    $adresse = $row['Adresse'] ?? '';
+
+    echo '<div class="album py-5 bg-light">
+        <div class="container">
+            <div class="single-post">
+                <div class="blog_details">
+                    <h2 style="color: #2d2d2d;">'.$titre.'</h2>
+                    <p class="excert mt-5">'.$details.'</p>
+                    <h5 class="text-primary-emphasis">'.$adresse.'</h5>
+                    <h5 class="text-danger mt-5">PRIX '.$prix.' DH</h5>
+                </div>
+            </div>
+        </div>
+    </div>';
+  }
+} else {
+  echo "0 results";
+}
+
+$conn->close();
+?>
+
+
+    <!-- <div class="album py-5 bg-light">
       <div class="container">
       <div class="single-post">
-       <div class="feature-img">
-        <img class="img-fluid" src="assets/img/blog/single_blog_1.png" alt="">
-      </div>
       <div class="blog_details">
         <h2 style="color: #2d2d2d;">Announce title</h2>
        <p class="excert mt-5">
@@ -141,12 +208,11 @@
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla aliquid eos cupiditate optio, quia accusantium vel illum expedita cum delectus ea dolorum quis natus, nobis deleniti, ipsam iste! Odio, reiciendis!
        </p>
       <h5 class="text-primary-emphasis">Address</h5>
-      
       <h5 class="text-danger mt-5">PRIX DH</h5>
-   </div>
- </div>
       </div>
-    </div>
+      </div>
+      </div>
+    </div> -->
   </main>
   <footer class="text-muted py-5">
     <div class="container">

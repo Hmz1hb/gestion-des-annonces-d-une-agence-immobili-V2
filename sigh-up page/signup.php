@@ -40,7 +40,7 @@ body{
             </div>
             <div class="col-xl-6">
               <div class="card-body p-md-5 text-black">
-              <a href="#" class="navbar-brand d-flex align-items-center">
+              <a href="../Page Visiteure/Guest.php" class="navbar-brand d-flex align-items-center mt-5">
                     <img src="./Img/boul-removebg-preview.png" alt="" srcset="" width="30%" class="position-relative top-0 start-50 translate-middle pt-5"> 
                   </a>
               <h3 class="mb-5 text-center">Unlock Real Estate's Full Potential <br> Sign Up Now!</h3>
