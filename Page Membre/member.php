@@ -149,13 +149,31 @@
         <?php
   $test = "yes";
 
+  // check if form was submitted and set filter conditions
+  $filter_conditions = "";
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $category = $_POST["type"];
+    $min_price = $_POST["min_price"];
+    $max_price = $_POST["max_price"];
+
+    // build filter conditions
+    if ($category != "#") {
+      $filter_conditions .= " AND `category`='$category'";
+    }
+    if ($min_price != "") {
+      $filter_conditions .= " AND `Prix`>='$min_price'";
+    }
+    if ($max_price != "") {
+      $filter_conditions .= " AND `Prix`<='$max_price'";
+    }
+  }
 
   try {
     $conn = new PDO("mysql:host=localhost;dbname=gestion-des-annonces-d-une-agence-immobili-re;port=3306;charset=UTF8", 'root', '');
     // set the PDO error mode to exception
 
-    $content = $conn->query('SELECT `announcement`.`Announcement_ID` ,`Titre`,`Prix`,`Details`,`Type`,`ImageUrl` FROM `announcement`,`image` where `announcement`.`Announcement_ID`=`image`.`Announcement_ID` and `Image_P`="oui" ');
-
+    // modify query to include filter conditions
+    $content = $conn->query("SELECT `announcement`.`Announcement_ID`, `Titre`, `Prix`, `Details`, `Type`, `ImageUrl` FROM `announcement`, `image` WHERE `announcement`.`Announcement_ID`=`image`.`Announcement_ID` AND `Image_P`='oui' $filter_conditions");
 
     echo "<div class='container'>";
     echo "<div class='row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3'>";
@@ -166,6 +184,7 @@
           <div class="card-body">
               <h4 id="card_title">' . $ligne['Titre'] . '</h4>
               <h5 id="card_price" class="text-danger">' . $ligne['Prix'] . ' MAD</h5>
+              <p id="card_text" class="card-text">Card details</p>
               <h5 id="annonce-type" class="text-danger">POUR : ' . $ligne['Type'] . '</h5>
               <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
@@ -179,7 +198,6 @@
   } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
   }
-
 
   ?>
         <!-- pub modal -->

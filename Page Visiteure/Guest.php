@@ -146,13 +146,31 @@
         <?php
   $test = "yes";
 
+  // check if form was submitted and set filter conditions
+  $filter_conditions = "";
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $category = $_POST["type"];
+    $min_price = $_POST["min_price"];
+    $max_price = $_POST["max_price"];
+
+    // build filter conditions
+    if ($category != "#") {
+      $filter_conditions .= " AND `category`='$category'";
+    }
+    if ($min_price != "") {
+      $filter_conditions .= " AND `Prix`>='$min_price'";
+    }
+    if ($max_price != "") {
+      $filter_conditions .= " AND `Prix`<='$max_price'";
+    }
+  }
 
   try {
     $conn = new PDO("mysql:host=localhost;dbname=gestion-des-annonces-d-une-agence-immobili-re;port=3306;charset=UTF8", 'root', '');
     // set the PDO error mode to exception
 
-    $content = $conn->query('SELECT `announcement`.`Announcement_ID` ,`Titre`,`Prix`,`Details`,`Type`,`ImageUrl` FROM `announcement`,`image` where `announcement`.`Announcement_ID`=`image`.`Announcement_ID` and `Image_P`="oui" ');
-
+    // modify query to include filter conditions
+    $content = $conn->query("SELECT `announcement`.`Announcement_ID`, `Titre`, `Prix`, `Details`, `Type`, `ImageUrl` FROM `announcement`, `image` WHERE `announcement`.`Announcement_ID`=`image`.`Announcement_ID` AND `Image_P`='oui' $filter_conditions");
 
     echo "<div class='container'>";
     echo "<div class='row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3'>";
@@ -178,8 +196,8 @@
     echo "Error: " . $e->getMessage();
   }
 
-
   ?>
+
         <!-- pub modal -->
         <div class="modal fade" id="pub_modal" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog modal-xl modal-dialog-centered">
