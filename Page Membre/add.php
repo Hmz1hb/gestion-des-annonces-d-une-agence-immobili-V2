@@ -36,9 +36,11 @@
 </form>
     <?php
 
-    
-session_start();
+    if($_POST['submit']){
+        session_start();
 echo  $_SESSION['user'];
+    }
+
     
     
     ?>
