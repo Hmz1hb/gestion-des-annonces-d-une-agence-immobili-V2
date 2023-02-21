@@ -31,18 +31,15 @@
             <option>Vente</option>
             <option>Location</option>
           </select>
-          <button type="submit" class="btn btn-dark-subtle m-4">Ajouter</button>
+          <button type="submit" name="submit" class="btn btn-dark-subtle m-4">Ajouter</button>
 
 </form>
     <?php
 
-    if($_POST['submit']){
+   
         session_start();
-    echo  $_SESSION['user'];
-    }
+    echo  $_SESSION['id'];
 
-    
-    
     ?>
 </body>
 </html>
