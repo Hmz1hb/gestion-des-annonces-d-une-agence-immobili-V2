@@ -95,7 +95,12 @@ if (isset($_POST['email']) && isset($_POST['password']) ) {
             if ($stmt->rowCount() > 0) {
                 // Stocker les informations de l'utilisateur dans une session
                 session_start();
-                $_SESSION['user'] = $stmt->fetch();
+                while ($ligne = $content->fetch()) { 
+                    $_SESSION['user'] = $ligne['Nom_M']." ".$ligne['Prenom_M'];
+                    $_SESSION['id'] = $ligne['Membre_ID'];
+                    
+                  ;}
+             
             
                 // Rediriger l'utilisateur vers la page d'accueil
                header("Location:http://localhost/Page%20Membre/member.php");
