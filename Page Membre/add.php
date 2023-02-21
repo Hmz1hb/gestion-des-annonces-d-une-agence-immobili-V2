@@ -24,7 +24,7 @@
           <input type="number" class="form-control" id="montant" name="montant"><br>
 
           <label for="dateAnnonce">Date PUB</label>
-          <input type="date" class="form-control" id="dateAnnonce" name="dateA"><br>
+          <input type="date" class="form-control" id="dateAnnonce" name="dateP"><br>
 
 
           <select class="form-control" id="type" name="type"><br>
@@ -36,10 +36,28 @@
 </form>
     <?php
 
-    if($_POST['submit']){
-        session_start();
-    echo  $_SESSION['user'];
-    }
+if (
+    isset($_POST['titre']) && isset($_POST['image']) 
+    && isset($_POST['adresse']) && isset($_POST['montant'])
+    && isset($_POST['dateP']) && isset($_POST['type'])
+) {
+     $TitreContent = $_POST['titre'];
+    $imageContent = $_POST['image'];
+    $adresseContent = $_POST['adresse'];
+    $montantContent = $_POST['montant'];
+    $datePContent = $_POST['dateAnnonce'];
+    $typeContent = $_POST['type'];
+
+
+
+
+
+
+
+    
+
+
+}
 
     
     

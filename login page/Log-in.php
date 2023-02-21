@@ -95,7 +95,7 @@ if (isset($_POST['email']) && isset($_POST['password']) ) {
             if ($stmt->rowCount() > 0) {
                 // Stocker les informations de l'utilisateur dans une session
                 session_start();
-                while ($ligne = $content->fetch()) { 
+                while ($ligne = $stmt->fetch()) { 
                     $_SESSION['user'] = $ligne['Nom_M']." ".$ligne['Prenom_M'];
                     $_SESSION['id'] = $ligne['Membre_ID'];
                     
