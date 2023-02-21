@@ -66,39 +66,22 @@
 
 <body>
 
-  <header>
-    <div class="collapse" id="navbarHeader" style="background-color: #55595c;">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 col-md-7 py-4">
-            <h4 class="text-white">About</h4>
-            <p class="text-white">Boulevard Real Estate is a full-service real estate agency committed to providing exceptional service to all of our clients. Our experienced agents have a deep understanding of the local real estate market and are equipped to assist with all your buying, selling, and renting needs. From the initial search to closing the deal, we work closely with our clients to ensure a smooth and successful transaction. With our network of industry professionals and cutting-edge technology, we are able to provide our clients with a competitive edge in today's fast-paced market. Whether you're looking to purchase your dream home, sell your current property, or rent a new place, Boulevard Real Estate is here to help. Contact us today to learn how we can assist you with your real estate needs.</p>
-          </div>
-          <div class="col-sm-4 offset-md-1 py-4">
-            <h4 class="text-white">Contact</h4>
-            <ul class="list-unstyled">
-              <li><a href="#" class="text-white">Follow on Twitter</a></li>
-              <li><a href="#" class="text-white">Like on Facebook</a></li>
-              <li><a href="#" class="text-white">Email me</a></li>
-            </ul>
-          </div>
+<header class="p-3 mb-3 border-bottom">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="./Guest.php" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+        <img src="./img/boul-removebg-preview.png" alt="Boulvard" width="30%"  fill="none"> 
+        <div class="dropdown text-end position-relative top-0 start-50">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="./Img/free-user-login-icon-3057-thumb.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small">
+            <li><a class="dropdown-item" href="../login page/Log-in.php">Sign-In</a></li>
+          </ul>
         </div>
       </div>
     </div>
-    <div class="navbar navbar-dark bg-light shadow-sm">
-      <div class="container" id>
-        <a href="./Guest.php" class="navbar-brand d-flex align-items-center">
-          <img src="./img/boul-removebg-preview.png" alt="Boulvard" width="30%"  fill="none"> 
-        </a>
-        <a href="../login page/Log-in.php"><i class="fa-solid fa-user-plus"></i></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fa-solid fa-bars" style="color: #55595c;"></i>
-        </button>
-      </div>
-
-      
-    </div>
-  </header>
+</header>
 
   <main>
   <section class="py-5 text-center container">
