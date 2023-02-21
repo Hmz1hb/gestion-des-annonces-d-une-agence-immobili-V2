@@ -118,24 +118,34 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-12 p-0">
-                      <select name="type" class="form-control search-slt" id="exampleFormControlSelect1">
+                    <div class="col-lg-2 col-md-12 col-sm-12 p-0">
+                      <select name="category" class="form-control search-slt" id="exampleFormControlSelect1">
                         <option value="#">Rental or Sale</option>
-                        <option value="Location">Rental</option>
+                        <option value="location">Rental</option>
                         <option value="vente">Sale</option>
                       </select>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                      <input name="min_price" type="text" class="form-control search-slt" placeholder="Enter Minimal price">
+                      <div class="col-lg-2 col-md-6 col-sm-12 p-0">
+                      <select name="type" class="form-control search-slt" id="exampleFormControlSelect1">
+                        <option value="#">Type</option>
+                        <option value="maison">Maison</option>
+                        <option value="appartement">Appartement</option>
+                        <option value="terrain">Terrain</option>
+                        <option value="bureau">bureau</option>
+                      </select>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                      <input type="text" name="max_price" class="form-control search-slt" placeholder="Enter Maximal price">
+                    <div class="col-lg-2 col-md-6 col-sm-12 p-0">
+                      <input type="text" name="Ville" class="form-control search-slt" placeholder="Ville">
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-12 p-0">
-                      <button type="submit" class="btn btn-danger wrn-btn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                    <div class="col-lg-2 col-md-6 col-sm-12 p-0">
+                      <input name="min_price" type="text" class="form-control search-slt" placeholder="Min-Price">
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-12 p-0">
-                      <button type="button" class="btn btn-secondary wrn-btn" data-bs-toggle="modal" data-bs-target="#pub_modal"><i class="fa-solid fa-pen-to-square"></i> Sell</button>
+                    <div class="col-lg-2 col-md-6 col-sm-12 p-0">
+                      <input type="text" name="max_price" class="form-control search-slt" placeholder="Max-Price">
+                    </div>
+                    <div class="col-lg-2 col-md-12
+                     col-sm-12 p-0">
+                      <button type="submit" class="btn btn-danger wrn-btn"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
                     </div>
                   </div>
                 </div>
@@ -143,59 +153,65 @@
             </form>
           </div>
         </section>
-        <?php
-  $test = "yes";
+        <?php  
+ // check if form was submitted and set filter conditions
+ $filter_conditions = "";
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
+   $type = $_POST["type"];
+   $min_price = $_POST["min_price"];
+   $max_price = $_POST["max_price"];
+   $category = $_POST['category'];
+   $ville = $_POST['Ville'];
 
-  // check if form was submitted and set filter conditions
-  $filter_conditions = "";
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $category = $_POST["type"];
-    $min_price = $_POST["min_price"];
-    $max_price = $_POST["max_price"];
 
-    // build filter conditions
-    if ($category != "#") {
-      $filter_conditions .= " AND `category`='$category'";
-    }
-    if ($min_price != "") {
-      $filter_conditions .= " AND `Prix`>='$min_price'";
-    }
-    if ($max_price != "") {
-      $filter_conditions .= " AND `Prix`<='$max_price'";
-    }
-  }
+   // build filter conditions
+   if ($type != "#") {
+     $filter_conditions .= " AND `Type`='$type'";
+   }
+   if ($min_price != "") {
+     $filter_conditions .= " AND `Prix`>='$min_price'";
+   }
+  if ($max_price != "") {
+     $filter_conditions .= " AND `Prix`<='$max_price'";
+   }
+   if($category != "#"){
+    $filter_conditions .= " AND `Category` ='$category' ";
+   }
+   if( $ville != ""){
+    $filter_conditions .= " AND `Ville` = '$ville'";
+   
+ }
+ }
+ try {
+   $conn = new PDO("mysql:host=localhost;dbname=gestion-des-annonces-d-une-agence-immobili-re;port=3306;charset=UTF8", 'root', '');
+   // set the PDO error mode to exception
 
-  try {
-    $conn = new PDO("mysql:host=localhost;dbname=gestion-des-annonces-d-une-agence-immobili-re;port=3306;charset=UTF8", 'root', '');
-    // set the PDO error mode to exception
+   // modify query to include filter conditions
+   $content = $conn->query("SELECT `announcement`.`Announcement_ID`, `Titre`, `Prix`, `Details`, `Type`, `ImageUrl` FROM `announcement`, `image` WHERE `announcement`.`Announcement_ID`=`image`.`Announcement_ID` AND `Image_P`='oui'$filter_conditions");
 
-    // modify query to include filter conditions
-    $content = $conn->query("SELECT `announcement`.`Announcement_ID`, `Titre`, `Prix`, `Details`, `Type`, `ImageUrl` FROM `announcement`, `image` WHERE `announcement`.`Announcement_ID`=`image`.`Announcement_ID` AND `Image_P`='oui' $filter_conditions");
-
-    echo "<div class='container'>";
-    echo "<div class='row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3'>";
-    while ($ligne = $content->fetch()) {
-      echo '  <div class="col">
-      <div class="card shadow-sm">
-          <img id="card_img" src="' . $ligne['ImageUrl'] . '" alt="' . $ligne['Titre'] . '" width="100%" height="225" fill="none">
-          <div class="card-body">
-              <h4 id="card_title">' . $ligne['Titre'] . '</h4>
-              <h5 id="card_price" class="text-danger">' . $ligne['Prix'] . ' MAD</h5>
-              <p id="card_text" class="card-text">Card details</p>
-              <h5 id="annonce-type" class="text-danger">POUR : ' . $ligne['Type'] . '</h5>
-              <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                      <a href="details.php?id=' . $ligne['Announcement_ID'] . '" id="edit" class="btn btn-sm btn-outline-secondary">Details</a>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>';
-    }
-  } catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-  }
-
+   echo "<div class='container'>";
+   echo "<div class='row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3'>";
+   while ($ligne = $content->fetch()) {
+     echo '  <div class="col">
+     <div class="card shadow-sm">
+         <img id="card_img" src="' . $ligne['ImageUrl'] . '" alt="' . $ligne['Titre'] . '" width="100%" height="225" fill="none">
+         <div class="card-body">
+             <h4 id="card_title">' . $ligne['Titre'] . '</h4>
+             <h5 id="card_price" class="text-danger">' . $ligne['Prix'] . ' MAD</h5>
+             <p id="card_text" class="card-text">Card details</p>
+             <h5 id="annonce-type" class="text-danger">POUR : ' . $ligne['Type'] . '</h5>
+             <div class="d-flex justify-content-between align-items-center">
+                 <div class="btn-group">
+                     <a href="details.php?id=' . $ligne['Announcement_ID'] . '" id="edit" class="btn btn-sm btn-outline-secondary">Details</a>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>';
+   }
+ } catch (PDOException $e) {
+   echo "Error: " . $e->getMessage();
+ }
   ?>
 
         <!-- pub modal -->

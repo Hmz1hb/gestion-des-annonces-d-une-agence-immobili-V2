@@ -64,7 +64,7 @@
 </head>
 
 <body>
-
+<!-- 
   <header>
     <div class="collapse" id="navbarHeader" style="background-color: #55595c;">
       <div class="container">
@@ -89,15 +89,34 @@
         <a href="./member.php" class="navbar-brand d-flex align-items-center">
           <img src="./img/boul-removebg-preview.png" alt="Boulvard" width="30%"  fill="none"> 
         </a>
-        <a href="../login page/Log-in.php"><i class="fa-solid fa-circle-user"></i></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler me-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fa-solid fa-bars" style="color: #55595c;"></i>
         </button>
       </div>
+    </div>
+  </header> -->
 
-      
+  <header class="p-3 mb-3 border-bottom">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+        <img src="./img/boul-removebg-preview.png" alt="Boulvard" width="30%"  fill="none"> 
+        <div class="dropdown text-end position-relative top-0 start-50">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="./Img/pngwing.com.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small">
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </header>
+
 
   <main>
 
@@ -112,93 +131,106 @@
 
     <div class="album py-5 bg-light">
       <div class="container">
-
         <section class="search-sec mb-5">
           <div class="container">
-            <form action="index.php" method="post" novalidate="novalidate">
+            <form action="" method="post" novalidate="novalidate">
               <div class="row">
                 <div class="col-lg-12">
                   <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-12 p-0">
-                      <select name="type" class="form-control search-slt" id="exampleFormControlSelect1">
+                    <div class="col-lg-2 col-md-12 col-sm-12 p-0">
+                      <select name="category" class="form-control search-slt" id="exampleFormControlSelect1">
                         <option value="#">Rental or Sale</option>
-                        <option value="Location">Rental</option>
+                        <option value="location">Rental</option>
                         <option value="vente">Sale</option>
                       </select>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                      <input name="min_price" type="text" class="form-control search-slt" placeholder="Enter Minimal price">
+                      <div class="col-lg-2 col-md-6 col-sm-12 p-0">
+                      <select name="type" class="form-control search-slt" id="exampleFormControlSelect1">
+                        <option value="#">Type</option>
+                        <option value="maison">Maison</option>
+                        <option value="appartement">Appartement</option>
+                        <option value="terrain">Terrain</option>
+                        <option value="bureau">bureau</option>
+                      </select>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                      <input type="text" name="max_price" class="form-control search-slt" placeholder="Enter Maximal price">
+                    <div class="col-lg-2 col-md-6 col-sm-12 p-0">
+                      <input type="text" name="Ville" class="form-control search-slt" placeholder="Ville">
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-12 p-0">
-                      <button type="submit" class="btn btn-danger wrn-btn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                    <div class="col-lg-2 col-md-6 col-sm-12 p-0">
+                      <input name="min_price" type="text" class="form-control search-slt" placeholder="Min-Price">
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-12 p-0">
-                      <button type="button" class="btn btn-secondary wrn-btn" data-bs-toggle="modal" data-bs-target="#pub_modal"><i class="fa-solid fa-pen-to-square"></i> Sell</button>
+                    <div class="col-lg-2 col-md-6 col-sm-12 p-0">
+                      <input type="text" name="max_price" class="form-control search-slt" placeholder="Max-Price">
+                    </div>
+                    <div class="col-lg-2 col-md-12
+                     col-sm-12 p-0">
+                      <button type="submit" class="btn btn-danger wrn-btn"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
                     </div>
                   </div>
                 </div>
               </div>
             </form>
-
-
           </div>
         </section>
-        <?php
-  $test = "yes";
+        <?php  
+ // check if form was submitted and set filter conditions
+ $filter_conditions = "";
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
+   $type = $_POST["type"];
+   $min_price = $_POST["min_price"];
+   $max_price = $_POST["max_price"];
+   $category = $_POST['category'];
+   $ville = $_POST['Ville'];
 
-  // check if form was submitted and set filter conditions
-  $filter_conditions = "";
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $category = $_POST["type"];
-    $min_price = $_POST["min_price"];
-    $max_price = $_POST["max_price"];
 
-    // build filter conditions
-    if ($category != "#") {
-      $filter_conditions .= " AND `category`='$category'";
-    }
-    if ($min_price != "") {
-      $filter_conditions .= " AND `Prix`>='$min_price'";
-    }
-    if ($max_price != "") {
-      $filter_conditions .= " AND `Prix`<='$max_price'";
-    }
-  }
+   // build filter conditions
+   if ($type != "#") {
+     $filter_conditions .= " AND `Type`='$type'";
+   }
+   if ($min_price != "") {
+     $filter_conditions .= " AND `Prix`>='$min_price'";
+   }
+  if ($max_price != "") {
+     $filter_conditions .= " AND `Prix`<='$max_price'";
+   }
+   if($category != "#"){
+    $filter_conditions .= " AND `Category` ='$category' ";
+   }
+   if( $ville != ""){
+    $filter_conditions .= " AND `Ville` = '$ville'";
+   
+ }
+ }
+ try {
+   $conn = new PDO("mysql:host=localhost;dbname=gestion-des-annonces-d-une-agence-immobili-re;port=3306;charset=UTF8", 'root', '');
+   // set the PDO error mode to exception
 
-  try {
-    $conn = new PDO("mysql:host=localhost;dbname=gestion-des-annonces-d-une-agence-immobili-re;port=3306;charset=UTF8", 'root', '');
-    // set the PDO error mode to exception
+   // modify query to include filter conditions
+   $content = $conn->query("SELECT `announcement`.`Announcement_ID`, `Titre`, `Prix`, `Details`, `Type`, `ImageUrl` FROM `announcement`, `image` WHERE `announcement`.`Announcement_ID`=`image`.`Announcement_ID` AND `Image_P`='oui'$filter_conditions");
 
-    // modify query to include filter conditions
-    $content = $conn->query("SELECT `announcement`.`Announcement_ID`, `Titre`, `Prix`, `Details`, `Type`, `ImageUrl` FROM `announcement`, `image` WHERE `announcement`.`Announcement_ID`=`image`.`Announcement_ID` AND `Image_P`='oui' $filter_conditions");
-
-    echo "<div class='container'>";
-    echo "<div class='row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3'>";
-    while ($ligne = $content->fetch()) {
-      echo '  <div class="col">
-      <div class="card shadow-sm">
-          <img id="card_img" src="' . $ligne['ImageUrl'] . '" alt="' . $ligne['Titre'] . '" width="100%" height="225" fill="none">
-          <div class="card-body">
-              <h4 id="card_title">' . $ligne['Titre'] . '</h4>
-              <h5 id="card_price" class="text-danger">' . $ligne['Prix'] . ' MAD</h5>
-              <p id="card_text" class="card-text">Card details</p>
-              <h5 id="annonce-type" class="text-danger">POUR : ' . $ligne['Type'] . '</h5>
-              <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                      <a href="details.php?id=' . $ligne['Announcement_ID'] . '" id="edit" class="btn btn-sm btn-outline-secondary">Details</a>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>';
-    }
-  } catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-  }
-
+   echo "<div class='container'>";
+   echo "<div class='row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3'>";
+   while ($ligne = $content->fetch()) {
+     echo '  <div class="col">
+     <div class="card shadow-sm">
+         <img id="card_img" src="' . $ligne['ImageUrl'] . '" alt="' . $ligne['Titre'] . '" width="100%" height="225" fill="none">
+         <div class="card-body">
+             <h4 id="card_title">' . $ligne['Titre'] . '</h4>
+             <h5 id="card_price" class="text-danger">' . $ligne['Prix'] . ' MAD</h5>
+             <p id="card_text" class="card-text">Card details</p>
+             <h5 id="annonce-type" class="text-danger">POUR : ' . $ligne['Type'] . '</h5>
+             <div class="d-flex justify-content-between align-items-center">
+                 <div class="btn-group">
+                     <a href="details.php?id=' . $ligne['Announcement_ID'] . '" id="edit" class="btn btn-sm btn-outline-secondary">Details</a>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>';
+   }
+ } catch (PDOException $e) {
+   echo "Error: " . $e->getMessage();
+ }
   ?>
         <!-- pub modal -->
         <div class="modal fade" id="pub_modal" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
