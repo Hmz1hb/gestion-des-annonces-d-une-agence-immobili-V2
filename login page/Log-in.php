@@ -103,7 +103,7 @@ if (isset($_POST['email']) && isset($_POST['password']) ) {
              
             
                 // Rediriger l'utilisateur vers la page d'accueil
-               header("Location:http://localhost/Page%20Membre/member.php");
+               header("Location:http://localhost/Page%20Membre/add.php");
                
                 exit;
             } else {

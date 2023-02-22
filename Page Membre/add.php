@@ -110,7 +110,7 @@ if (
             // Set the Image_P value
             $image_p = ($is_principal == 1) ? "OUI" : "NON";
             try {
-                $conn = new PDO("mysql:host=localhost;dbname=gestionimmobilier;port=3306;charset=UTF8", 'root', '');
+                $conn = new PDO("mysql:host=localhost;dbname=gestion-des-annonces-d-une-agence-immobili-re;port=3306;charset=UTF8", 'root', '');
                 // set the PDO error mode to exception
                  
                 $stmt = $conn->prepare("INSERT INTO announcement (Titre, Prix, DatePub, LastModified, adresse, Category, Type, Membre_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
