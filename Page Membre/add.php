@@ -97,45 +97,12 @@ if (
     
             // Generate a unique file name
             $new_file_name_random = time() . "-" . $file_name;
-            $new_file_path = "./images/" . $new_file_name_random;
+            $new_file_path = "./img/" . $new_file_name_random;
     
             // Store the uploaded file
             if (!move_uploaded_file($file_tmp, $new_file_path)) {
                 // Handle error: Failed to store file
             }
-
-    
-            // Determine if the file is the principal image
-            $is_principal = ($i == 0 && isset($_POST['principal_image']) && $_POST['principal_image'] == $i) ? 1 : 0;
-    
-            // Set the Image_P value
-            $image_p = ($is_principal == 1) ? "OUI" : "NON";
-            try {
-                $conn = new PDO("mysql:host=localhost;dbname=gestion-des-annonces-d-une-agence-immobili-re;port=3306;charset=UTF8", 'root', '');
-                // set the PDO error mode to exception
-                 
-                $stmt = $conn->prepare("INSERT INTO announcement (Titre, Prix, DatePub, LastModified, adresse, Category, Type, Membre_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bindParam(1, $TitreContent);
-                $stmt->bindParam(2, $montantContent);
-                $stmt->bindParam(3, date("Y/m/d"));
-                $stmt->bindParam(4, date("Y/m/d"));
-                $stmt->bindParam(5, $adresseContent);
-                $stmt->bindParam(6, $categoryContent);
-                $stmt->bindParam(7, $typeContent);
-                $stmt->bindParam(8, $sessionId);    
-                $stmt->execute();
-                $order_id = $conn->lastInsertId();
-            
-                $stmt = $conn->prepare("INSERT INTO image (url, announcement_id, is_principal) VALUES (?, ?, ?)");
-                $stmt->bindParam(1, $new_file_name_random);
-                $stmt->bindParam(2, $order_id);
-                $stmt->bindParam(3, $image_p);    
-                $stmt->execute();
-            } catch (PDOException $e) {
-                echo "Error: " . $e->getMessage();
-            }
-    }
-}            
     try {
         $conn = new PDO("mysql:host=localhost;dbname=gestionimmobilier;port=3306;charset=UTF8", 'root', '');
         // set the PDO error mode to exception
@@ -146,8 +113,8 @@ if (
         $stmt->execute();
         $order_id = $conn->lastInsertId();
 
-        $stmt = $conn->prepare("INSERT INTO image (Titre, Prix,DatePub,LastModified, adresse,Category, Type, Membre_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bindParam( $new_file_name,array($new_file_name_random),$order_id,);    
+        $stmt = $conn->prepare("INSERT INTO image (ImageUrl,Announcement_ID,Image_P) VALUES (?, ?, ?)");
+        $stmt->bindParam( $new_file_name,array($new_file_name_random),$order_id,           );    
         $stmt->execute();
       
        
@@ -159,7 +126,23 @@ if (
         echo "Error: " . $e->getMessage();
       }
 
-    } 
+    } }
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+}
+
     ?>
 </body>
 </html>
