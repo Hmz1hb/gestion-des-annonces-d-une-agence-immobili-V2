@@ -71,9 +71,9 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="navbar-nav">
-    <div class="nav-item text-nowrap">
+    <!-- <div class="nav-item text-nowrap">
       <a class="nav-link px-3" href="#">Sign out</a>
-    </div>
+    </div> -->
   </div>
 </header>
 
@@ -106,99 +106,101 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
-                        <div>
-                            <div class="header">
+                         <div class="header">
                                 <h4 class="title">Edit Profile</h4>
-                            </div>
+                        </div>
                             <div class="content">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <label>Company</label>
-                                                <input type="text" class="form-control border-input" placeholder="Company" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Username</label>
-                                                <input type="text" class="form-control border-input" placeholder="Username" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control border-input" placeholder="">
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                <form action="" method="p">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>First Name</label>
-                                                <input type="text" class="form-control border-input" placeholder="First Name" value="">
+                                                <input type="text" name="first_name" class="form-control border-input" placeholder="First Name" value="<?php echo $user_info['Prenom_M']; ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Last Name</label>
-                                                <input type="text" class="form-control border-input" placeholder="Last Name" value="">
+                                                <input type="text" name="last_name" class="form-control border-input" placeholder="Last Name" value="">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Address</label>
-                                                <input type="text" class="form-control border-input" placeholder="Home Address" value="">
+                                                <label>Email</label>
+                                                <input type="email" name="email" class="form-control border-input" placeholder="Email" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Phone number</label>
+                                                <input type="tel" name="PhoneNumber" class="form-control border-input" placeholder="Phone number" value="">
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>City</label>
-                                                <input type="text" class="form-control border-input" placeholder="City" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Country</label>
-                                                <input type="text" class="form-control border-input" placeholder="Country" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Postal Code</label>
-                                                <input type="number" class="form-control border-input" placeholder="ZIP Code">
-                                            </div>
-                                        </div>
+                                    <div class="text-center mt-5">
+                                        <button type="submit" class="btn btn-secondary btn-fill btn-wd">Update Profile</button>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>About Me</label>
-                                                <textarea rows="5" class="form-control border-input" placeholder="Here can be your description" value=""></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-info ">Update Profile</button>
-                                    </div>
-                                    <div class="clearfix"></div>
                                 </form>
+                                <?php 
+                                 $_SESSION                                
+
+                                $servername = "localhost";
+                                $username = "root";
+                                $password = "";
+                                $dbname = "gestion-des-annonces-d-une-agence-immobili-re";
+
+                                $conn = new mysqli($servername, $username, $password, $dbname);
+
+                                // Check for any database connection errors
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+
+                                // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                //     // User input
+                                //     $first_name = filter_var($_POST['first_name'], FILTER_SANITIZE_STRING);
+                                //     $last_name = filter_var($_POST['last_name'], FILTER_SANITIZE_STRING);
+                                //     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+                                //     $PhoneNumber = filter_var($_POST['PhoneNumber'], FILTER_SANITIZE_STRING);
+
+                                //     // Update the user's information in the database
+                                //     $query = "UPDATE membre SET Nom_M = '$last_name', Prenom_M = '$first_name', Email_M = '$email', TelephoneM = '$PhoneNumber' WHERE Membre_ID = {$_SESSION['id']}";
+                                //     if ($conn->query($query) === TRUE) {
+                                //         echo "Record updated successfully";
+                                //     } else {
+                                //         echo "Error updating record: " . $conn->error;
+                                //     }
+
+                                //     $success_message = 'Your profile has been updated.';
+                                // }
+
+                                // // Get the user's information from the database
+                                // $query = "SELECT * FROM member WHERE Membre_ID = {$_SESSION['id']}";
+                                // $result = $conn->query($query);
+
+                                // // Fetch the user's information from the result set
+                                // if ($result !== false && $result->num_rows > 0) {
+                                //     $user_info = $result->fetch_assoc();
+                                // } else {
+                                //     // Handle any errors
+                                //     echo "Error fetching user information: " . $conn->error;
+                                // }
+
+                                // Close the database connection
+                                $conn->close();
+                                
+                                ?>
+
                             </div>
-                        </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
+     </div>
+ </div>
       
     </main>
   </div>
