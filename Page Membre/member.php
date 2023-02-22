@@ -64,7 +64,14 @@
 </head>
 
 <body>
-
+<?php    session_start();
+           // Check if the user is logged in
+           if(!isset($_SESSION['id'])) {
+            // Redirect the user to the login page
+            header("Location: http://localhost/login%20page/Log-in.php");
+            exit;
+          }
+  ?>
 
   <header class="p-3 mb-3 border-bottom">
     <div class="container">
@@ -78,7 +85,7 @@
           <ul class="dropdown-menu text-small">
             <li><a class="dropdown-item" href="#">New project...</a></li>
             <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="./Profile.php">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Sign out</a></li>
           </ul>

@@ -181,13 +181,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>First Name</label>
-                                                <input type="text" name="first_name" class="form-control border-input" placeholder="<?php echo $user_info['Prenom_M']; ?>" value="" disabled>
+                                                <input type="text" name="first_name" class="form-control border-input" placeholder="<?php echo $user_info['Prenom_M']; ?>" value="">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Last Name</label>
-                                                <input type="text" name="last_name" class="form-control border-input" placeholder="<?php echo $user_info['Nom_M']; ?>" value="" disabled>
+                                                <input type="text" name="last_name" class="form-control border-input" placeholder="<?php echo $user_info['Nom_M']; ?>" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -196,19 +196,18 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Email</label>
-                                                <input type="email" name="email" class="form-control border-input" placeholder="<?php echo $user_info['Email_M']; ?>" value="" disabled>
+                                                <input type="email" name="email" class="form-control border-input" placeholder="<?php echo $user_info['Email_M']; ?>" value="">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Phone number</label>
-                                                <input type="tel" name="PhoneNumber" class="form-control border-input" placeholder="<?php echo $user_info['TelephoneM']; ?>" value="" disabled>
+                                                <input type="tel" name="PhoneNumber" class="form-control border-input" placeholder="<?php echo $user_info['TelephoneM']; ?>" value="">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mt-5">
-                                        <button type="button" id="update-btn" class="btn btn-secondary btn-fill btn-wd">Update Profile</button>
-                                        <button type="submit" id="save-btn" class="btn btn-secondary btn-fill btn-wd" style="display: none;">Update Profile</button>
+                                        <button type="submit" class="btn btn-secondary btn-fill btn-wd">Update Profile</button>
                                     </div>
                                 </form>
                             
@@ -226,7 +225,7 @@
 </div>
       <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
-      <script>
+      <!-- <script>
   // Get the input fields and update button
   const inputs = document.querySelectorAll('input');
   const updateBtn = document.getElementById('update-btn');
@@ -245,6 +244,6 @@
     updateBtn.style.display = 'none';
     saveBtn.style.display = 'inline-block';
   });
-</script>
+</script> -->
 </body>
 </html>

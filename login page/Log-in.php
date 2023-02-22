@@ -84,7 +84,7 @@
 
 
     try {
-      $conn = new PDO("mysql:host=localhost;dbname=gestionimmobilier;port=3306;charset=UTF8", 'root', '');
+      $conn = new PDO("mysql:host=localhost;dbname=gestion-des-annonces-d-une-agence-immobili-re;port=3306;charset=UTF8", 'root', '');
 
 
       $stmt1 = $conn->query("SELECT * FROM `member` WHERE  `Email_M`='$email '");
@@ -107,7 +107,7 @@
                 $_SESSION['id'] = $emailLigne['Membre_ID'];
         echo "in";
 
-        header("Location:https://trello.com/b/owfyRkZr/marketing-overview");
+        header("Location:http://localhost/Page%20Membre/Profile.php");
       }
     } catch (PDOException $e) {
       $errorMessage = "Error:" . $e->getMessage();
