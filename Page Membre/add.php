@@ -159,9 +159,7 @@ if (
         echo "Error: " . $e->getMessage();
       }
 
-    } }
-}
-
+    } 
     ?>
 </body>
 </html>
