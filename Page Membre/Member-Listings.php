@@ -178,7 +178,7 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
                                                 <a href="details.php?id=' . $ligne['Announcement_ID'] . '" id="edit" class="btn btn-sm btn-outline-secondary">Details</a>
-                                                <a href="details.php?id=' . $ligne['Announcement_ID'] . '" id="edit" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                                <a href="Edit.php?id=' . $ligne['Announcement_ID'] . '" id="edit" class="btn btn-sm btn-outline-secondary">Edit</a>
                                             <form method="post" action="delete.php">
                                                 <input type="hidden" name="id" value="' . $ligne['Announcement_ID'] . '">
                                                 <button type="submit" class="btn btn-sm btn-outline-secondary">Delete</button>
