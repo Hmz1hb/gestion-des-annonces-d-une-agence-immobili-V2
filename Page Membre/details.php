@@ -65,8 +65,15 @@
 </head>
 
 <body>
-
-<header class="p-3 mb-3 border-bottom">
+<?php    session_start();
+           // Check if the user is logged in
+           if(!isset($_SESSION['id'])) {
+            // Redirect the user to the login page
+            header("Location: http://localhost/login%20page/Log-in.php");
+            exit;
+          }
+  ?>
+  <header class="p-3 mb-3 border-bottom">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="./member.php" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
@@ -76,17 +83,17 @@
             <img src="./Img/pngwing.com.png" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small">
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="./New announcement.php">New announcement</a></li>
+            <li><a class="dropdown-item" href="./Member-Listings.php">My announcement</a></li>
+            <li><a class="dropdown-item" href="./Profile.php">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
           </ul>
         </div>
       </div>
     </div>
 </header>
-  <main>
+<main>
   <section class="py-5 text-center container">
   <div id="carouselExampleCaptions" class="carousel slide">
     <div class="carousel-indicators">
@@ -182,23 +189,6 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
-
-
-    <!-- <div class="album py-5 bg-light">
-      <div class="container">
-      <div class="single-post">
-      <div class="blog_details">
-        <h2 style="color: #2d2d2d;">Announce title</h2>
-       <p class="excert mt-5">
-        Announce details here
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla aliquid eos cupiditate optio, quia accusantium vel illum expedita cum delectus ea dolorum quis natus, nobis deleniti, ipsam iste! Odio, reiciendis!
-       </p>
-      <h5 class="text-primary-emphasis">Address</h5>
-      <h5 class="text-danger mt-5">PRIX DH</h5>
-      </div>
-      </div>
-      </div>
-    </div> -->
   </main>
   <footer class="text-muted py-5">
     <div class="container">

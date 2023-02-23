@@ -73,26 +73,26 @@
           }
   ?>
 
-  <header class="p-3 mb-3 border-bottom">
+<header class="p-3 mb-3 border-bottom">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+        <a href="./member.php" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
         <img src="./img/boul-removebg-preview.png" alt="Boulvard" width="30%"  fill="none"> 
         <div class="dropdown text-end position-relative top-0 start-50">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="./Img/pngwing.com.png" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small">
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="./New announcement.php">New announcement</a></li>
+            <li><a class="dropdown-item" href="./Member-Listings.php">My announcement</a></li>
             <li><a class="dropdown-item" href="./Profile.php">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
           </ul>
         </div>
       </div>
     </div>
-  </header>
+</header>
 
 
   <main>
@@ -209,18 +209,6 @@
    echo "Error: " . $e->getMessage();
  }
   ?>
-        <!-- pub modal -->
-        <div class="modal fade" id="pub_modal" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-body">
-                <h6 class="text-center text-capitalize">Unlock the Full Potential of Real Estate Marketing with Boulevard: Join Us Today and Access Exclusive Features to Maximize Your Sales Efforts!</h6>
-                <br>
-                <button href="#" type="button" id="Join Us" class="btn btn-sm btn-outline-secondary position-relative top-100 start-50 translate-middle">Join Us Now</button>
-              </div>
-            </div>
-          </div>
-        </div>
   </main>
   <footer class="text-muted py-5">
     <div class="container">

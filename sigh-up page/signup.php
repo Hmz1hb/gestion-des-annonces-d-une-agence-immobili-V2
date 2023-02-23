@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+ob_start()
+?>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -104,7 +106,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "gestionimmobilier";
+    $dbname = "gestion-des-annonces-d-une-agence-immobili-re";
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
@@ -131,7 +133,7 @@
     // Check if the query was successful
     if ($stmt->affected_rows > 0) {
       // Redirect to member page
-      header("Location: https://trello.com/b/owfyRkZr/marketing-overview");
+      header("Location: http://localhost/login%20page/Log-in.php");
 
       exit(); // Terminate the script
     } else {

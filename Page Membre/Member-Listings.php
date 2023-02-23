@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.108.0">
     <title>Dashboard Template · Bootstrap v5.3</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -65,16 +63,26 @@
   </head>
   <body>
     
-<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="./member.php"><img src="./img/boul-removebg-preview-inverted.png" alt="Boulvard" width="50%"  fill="none"> </a>
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="navbar-nav">
-    <!-- <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="#">Sign out</a>
-    </div> -->
-  </div>
+  <header class="p-3 mb-3 border-bottom">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="./member.php" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+        <img src="./img/boul-removebg-preview.png" alt="Boulvard" width="30%"  fill="none"> 
+        <div class="dropdown text-end position-relative top-0 start-50">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="./Img/pngwing.com.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small">
+            <li><a class="dropdown-item" href="./New announcement.php">New announcement</a></li>
+            <li><a class="dropdown-item" href="./Member-Listings.php">My announcement</a></li>
+            <li><a class="dropdown-item" href="./Profile.php">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+</header>
   <?php    session_start();
            // Check if the user is logged in
            if(!isset($_SESSION['id'])) {
@@ -83,23 +91,28 @@
             exit;
           }
   ?>
-</header>
 
 <div class="container-fluid">
   <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+  <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3 sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
+            <a class="nav-link active" aria-current="page" href="./Profile.php">
               <span data-feather="home" class="align-text-bottom"></span>
               My Profile
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="./Member-Listings.php">
               <span data-feather="file" class="align-text-bottom"></span>
               My Listings
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file" class="align-text-bottom"></span>
+              New Listing
             </a>
           </li>
         </ul>
@@ -108,111 +121,81 @@
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
+        <h1 class="h2">My Listings</h1>
       </div>
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
-                         <div class="header">
-                                <h4 class="title">Edit Profile</h4>
-                        </div>
                             <div class="content">
-                            <?php
-                              $servername = "localhost";
-                              $username = "root";
-                              $password = "";
-                              $dbname = "gestion-des-annonces-d-une-agence-immobili-re";
+                            <?php  
+                            // check if form was submitted and set filter conditions
+                            $filter_conditions = "";
+                            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                            $type = $_POST["type"];
+                            $min_price = $_POST["min_price"];
+                            $max_price = $_POST["max_price"];
+                            $category = $_POST['category'];
+                            $ville = $_POST['Ville'];
 
-                              $conn = new mysqli($servername, $username, $password, $dbname);
 
-                              // Check for any database connection errors
-                              if ($conn->connect_error) {
-                                  die("Connection failed: " . $conn->connect_error);
-                              }
-
-                              if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                                  // User input
-                                  $first_name = filter_var($_POST['first_name'], FILTER_SANITIZE_STRING);
-                                  $last_name = filter_var($_POST['last_name'], FILTER_SANITIZE_STRING);
-                                  $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-                                  $PhoneNumber = filter_var($_POST['PhoneNumber'], FILTER_SANITIZE_STRING);
-
-                                  // Get the user's information from the database
-                                  $query = "SELECT * FROM member WHERE Membre_ID = {$_SESSION['id']}";
-                                  $result = $conn->query($query);
-
-                                  // Fetch the user's information from the result set
-                                  if ($result !== false && $result->num_rows > 0) {
-                                      $user_info = $result->fetch_assoc();
-
-                                      // Update the user's information in the database
-                                      $query = "UPDATE member SET Nom_M = '" . ($last_name != '' ? $last_name : $user_info['Nom_M']) . "', Prenom_M = '" . ($first_name != '' ? $first_name : $user_info['Prenom_M']) . "', Email_M = '" . ($email != '' ? $email : $user_info['Email_M']) . "', TelephoneM = '" . ($PhoneNumber != '' ? $PhoneNumber : $user_info['TelephoneM']) . "' WHERE Membre_ID = {$_SESSION['id']}";
-                                      if ($conn->query($query) === TRUE) {
-                                          echo "Record updated successfully";
-                                      } else {
-                                          echo "Error updating record: " . $conn->error;
-                                      }
-
-                                      $success_message = 'Your profile has been updated.';
-                                  } else {
-                                      // Handle any errors
-                                      echo "Error fetching user information: " . $conn->error;
-                                  }
-                              }
-
-                              // Get the user's information from the database
-                              $query = "SELECT * FROM member WHERE Membre_ID = {$_SESSION['id']}";
-                              $result = $conn->query($query);
-
-                              // Fetch the user's information from the result set
-                              if ($result !== false && $result->num_rows > 0) {
-                                  $user_info = $result->fetch_assoc();
-                              } else {
-                                  // Handle any errors
-                                  echo "Error fetching user information: " . $conn->error;
-                              }
-
-                              // Close the database connection
-                              $conn->close();
-                              ?>
-                                <form action="" method="post">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>First Name</label>
-                                                <input type="text" name="first_name" class="form-control border-input" placeholder="<?php echo $user_info['Prenom_M']; ?>" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Last Name</label>
-                                                <input type="text" name="last_name" class="form-control border-input" placeholder="<?php echo $user_info['Nom_M']; ?>" value="">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Email</label>
-                                                <input type="email" name="email" class="form-control border-input" placeholder="<?php echo $user_info['Email_M']; ?>" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Phone number</label>
-                                                <input type="tel" name="PhoneNumber" class="form-control border-input" placeholder="<?php echo $user_info['TelephoneM']; ?>" value="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mt-5">
-                                        <button type="submit" class="btn btn-secondary btn-fill btn-wd">Update Profile</button>
-                                    </div>
-                                </form>
+                            // build filter conditions
+                            if ($type != "#") {
+                                $filter_conditions .= " AND `Type`='$type'";
+                            }
+                            if ($min_price != "") {
+                                $filter_conditions .= " AND `Prix`>='$min_price'";
+                            }
+                            if ($max_price != "") {
+                                $filter_conditions .= " AND `Prix`<='$max_price'";
+                            }
+                            if($category != "#"){
+                                $filter_conditions .= " AND `Category` ='$category' ";
+                            }
+                            if( $ville != ""){
+                                $filter_conditions .= " AND `Ville` = '$ville'";
                             
+                            }
+                            }
+                            try {
+                            $conn = new PDO("mysql:host=localhost;dbname=gestion-des-annonces-d-une-agence-immobili-re;port=3306;charset=UTF8", 'root', '');
+                            // set the PDO error mode to exception
 
-                            </div>
+                            // modify query to include filter conditions
+                            $content = $conn->query("SELECT announcement.Announcement_ID, Titre, Prix, Details, Type, ImageUrl FROM announcement, image WHERE announcement.Announcement_ID=image.Announcement_ID AND Image_P='oui' AND Membre_ID = '{$_SESSION['id']}' $filter_conditions");
+
+                            echo "<div class='container'>";
+                            echo "<div class='row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3'>";
+                            while ($ligne = $content->fetch()) {
+                                echo '  <div class="col">
+                                <div class="card shadow-sm">
+                                    <img id="card_img" src="' . $ligne['ImageUrl'] . '" alt="' . $ligne['Titre'] . '" width="100%" height="225" fill="none">
+                                    <div class="card-body">
+                                        <h4 id="card_title">' . $ligne['Titre'] . '</h4>
+                                        <h5 id="card_price" class="text-danger">' . $ligne['Prix'] . ' MAD</h5>
+                                        <p id="card_text" class="card-text">Card details</p>
+                                        <h5 id="annonce-type" class="text-danger">POUR : ' . $ligne['Type'] . '</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                                <a href="details.php?id=' . $ligne['Announcement_ID'] . '" id="edit" class="btn btn-sm btn-outline-secondary">Details</a>
+                                                <a href="details.php?id=' . $ligne['Announcement_ID'] . '" id="edit" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                            <form method="post" action="delete.php">
+                                                <input type="hidden" name="id" value="' . $ligne['Announcement_ID'] . '">
+                                                <button type="submit" class="btn btn-sm btn-outline-secondary">Delete</button>
+                                              </form>
+                                              
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>';
+                            }
+                            } catch (PDOException $e) {
+                            echo "Error: " . $e->getMessage();
+                            }
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -225,25 +208,5 @@
 </div>
       <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
-      <!-- <script>
-  // Get the input fields and update button
-  const inputs = document.querySelectorAll('input');
-  const updateBtn = document.getElementById('update-btn');
-  const saveBtn = document.getElementById('save-btn');
-
-  // Disable the input fields by default
-  inputs.forEach(input => {
-    input.disabled = true;
-  });
-
-  // Enable the input fields when the user clicks the update button
-  updateBtn.addEventListener('click', () => {
-    inputs.forEach(input => {
-      input.disabled = false;
-    });
-    updateBtn.style.display = 'none';
-    saveBtn.style.display = 'inline-block';
-  });
-</script> -->
 </body>
 </html>

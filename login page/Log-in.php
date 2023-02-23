@@ -107,7 +107,7 @@
                 $_SESSION['id'] = $emailLigne['Membre_ID'];
         echo "in";
 
-        header("Location:http://localhost/Page%20Membre/Profile.php");
+        header("Location:http://localhost/Page%20Membre/member.php");
       }
     } catch (PDOException $e) {
       $errorMessage = "Error:" . $e->getMessage();

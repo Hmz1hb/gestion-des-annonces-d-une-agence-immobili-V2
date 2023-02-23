@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.108.0">
     <title>Dashboard Template · Bootstrap v5.3</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -65,16 +63,26 @@
   </head>
   <body>
     
-<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="./member.php"><img src="./img/boul-removebg-preview-inverted.png" alt="Boulvard" width="50%"  fill="none"> </a>
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="navbar-nav">
-    <!-- <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="#">Sign out</a>
-    </div> -->
-  </div>
+  <header class="p-3 mb-3 border-bottom">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="./member.php" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+        <img src="./img/boul-removebg-preview.png" alt="Boulvard" width="30%"  fill="none"> 
+        <div class="dropdown text-end position-relative top-0 start-50">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="./Img/pngwing.com.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small">
+            <li><a class="dropdown-item" href="./New announcement.php">New announcement</a></li>
+            <li><a class="dropdown-item" href="./Member-Listings.php">My announcement</a></li>
+            <li><a class="dropdown-item" href="./Profile.php">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+</header>
   <?php    session_start();
            // Check if the user is logged in
            if(!isset($_SESSION['id'])) {
@@ -83,23 +91,29 @@
             exit;
           }
   ?>
-</header>
+
 
 <div class="container-fluid">
   <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+  <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3 sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
+            <a class="nav-link active" aria-current="page" href="./Profile.php">
               <span data-feather="home" class="align-text-bottom"></span>
               My Profile
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="./Member-Listings.php">
               <span data-feather="file" class="align-text-bottom"></span>
               My Listings
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file" class="align-text-bottom"></span>
+              New Listing
             </a>
           </li>
         </ul>
@@ -108,15 +122,12 @@
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
+        <h1 class="h2">Profile</h1>
       </div>
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
-                         <div class="header">
-                                <h4 class="title">Edit Profile</h4>
-                        </div>
                             <div class="content">
                             <?php
                               $servername = "localhost";
@@ -133,10 +144,10 @@
 
                               if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                   // User input
-                                  $first_name = filter_var($_POST['first_name'], FILTER_SANITIZE_STRING);
-                                  $last_name = filter_var($_POST['last_name'], FILTER_SANITIZE_STRING);
+                                  $first_name = filter_var($_POST['first_name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                                  $last_name = filter_var($_POST['last_name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                                   $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-                                  $PhoneNumber = filter_var($_POST['PhoneNumber'], FILTER_SANITIZE_STRING);
+                                  $PhoneNumber = filter_var($_POST['PhoneNumber'], FILTER_SANITIZE_NUMBER_INT);
 
                                   // Get the user's information from the database
                                   $query = "SELECT * FROM member WHERE Membre_ID = {$_SESSION['id']}";
