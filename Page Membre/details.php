@@ -108,7 +108,10 @@
         die("Connection failed: " . $conn->connect_error);
       }
       // Retrieve the images for the announcement
-      $announcement_id = 1; // Replace with the actual announcement ID
+      $received_code = $_GET['id'];
+
+          // Retrieve the images for the announcement
+          $announcement_id = $received_code; // Replace with the actual announcement ID // Replace with the actual announcement ID
       $query = "SELECT * FROM image WHERE Announcement_ID = $announcement_id ORDER BY Image_P DESC";
       $result = mysqli_query($conn, $query);
       

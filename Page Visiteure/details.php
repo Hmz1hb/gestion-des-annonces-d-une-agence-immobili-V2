@@ -61,6 +61,19 @@
 }
 
 </style>
+<script>
+    function teleshow(tele) {
+      let html = "";
+      var modal = document.getElementById("phone");
+      html += "<div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>" +
+        "<div class='modal-dialog'> <div class='modal-content'> <div class='modal-header'>" +
+        " <h1 class='modal-title fs-5' id='exampleModalLabel'>Assurance de dÃ©cision</h1>" + "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Clos'></button></div>" +
+        " <div class='modal-body'>" + tele + "</div>" +
+        "</div></div></div>";
+
+      modal.insertAdjacentHTML("afterbegin", html);
+    }
+  </script>
 
 </head>
 
@@ -83,6 +96,10 @@
     </div>
 </header>
 
+<div class="container" id="test">
+    <div class="row justify-content-center mt-4" id="phone">
+    </div>
+</div>
   <main>
   <section class="py-5 text-center container">
   <div id="carouselExampleCaptions" class="carousel slide">
@@ -98,7 +115,10 @@
         die("Connection failed: " . $conn->connect_error);
       }
       // Retrieve the images for the announcement
-      $announcement_id = 1; // Replace with the actual announcement ID
+      $received_code = $_GET['id'];
+
+      // Retrieve the images for the announcement
+      $announcement_id = $received_code; // Replace with the actual announcement ID // Replace with the actual announcement ID
       $query = "SELECT * FROM image WHERE Announcement_ID = $announcement_id ORDER BY Image_P DESC";
       $result = mysqli_query($conn, $query);
       
@@ -167,7 +187,7 @@ if ($result->num_rows > 0) {
                     <h2 style="color: #2d2d2d;">'.$titre.'</h2>
                     <p class="excert mt-5">'.$details.'</p>
                     <h5 class="text-primary-emphasis">'.$adresse.'</h5>
-                    <h5 class="text-danger mt-5">PRIX '.$prix.' DH</h5>
+                    <h5 class="text-danger mt-5">PRIX '.$prix.' DH</h5> 
                 </div>
             </div>
         </div>

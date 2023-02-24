@@ -186,7 +186,7 @@
    $content = $conn->query("SELECT `announcement`.`Announcement_ID`, `Titre`, `Prix`, `Details`, `Type`, `ImageUrl` FROM `announcement`, `image` WHERE `announcement`.`Announcement_ID`=`image`.`Announcement_ID` AND `Image_P`='oui'$filter_conditions");
 
    echo "<div class='container'>";
-   echo "<div class='row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3'>";
+   echo "<div class='row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3'>";
    while ($ligne = $content->fetch()) {
      echo '  <div class="col">
      <div class="card shadow-sm">

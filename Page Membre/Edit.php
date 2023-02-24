@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>Dashboard Template · Bootstrap v5.3</title>
+    <title>Annonce Edit</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
@@ -177,71 +177,141 @@
                                         $row = mysqli_fetch_assoc($result);
                                         $announcement_id = $row['Announcement_ID'];
 
-                                        // Update the image table with the new images
-                                        if (isset($_FILES['images'])) {
-                                            $images = $_FILES['images'];
-                                            $file_count = count($images['name']);
+                                        // Delete existing images associated with the announcement
+                                        $sql = "DELETE FROM image WHERE Announcement_ID = ?";
+                                        $stmt = mysqli_prepare($conn, $sql);
+                                        mysqli_stmt_bind_param($stmt, "i", $id);
+                                        mysqli_stmt_execute($stmt);
 
-                                            for ($i = 0; $i < $file_count; $i++) {
-                                                $file_name = $images['name'][$i];
-                                                $file_tmp = $images['tmp_name'][$i];
-                                                $file_type = $images['type'][$i];
-                                                $file_size = $images['size'][$i];
-                                                $new_file_name = "default.jpg";
+                                       // Insert the new images
+                                      if (isset($_FILES['images'])) {
+                                        $images = $_FILES['images'];
+                                        $file_count = count($images['name']);
 
-                                                // Allowed file extensions
-                                                $allowed_extensions = array("jpg", "jpeg", "png", "gif");
+                                        for ($i = 0; $i < $file_count; $i++) {
+                                            $file_name = $images['name'][$i];
+                                            $file_tmp = $images['tmp_name'][$i];
+                                            $file_type = $images['type'][$i];
+                                            $file_size = $images['size'][$i];
+                                            $new_file_name = "default.jpg";
 
-                                                // Get the file extension of the uploaded file
-                                                $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+                                            // Allowed file extensions
+                                            $allowed_extensions = array("jpg", "jpeg", "png", "gif");
 
-                                                // Check if the uploaded file extension is allowed
-                                                if (!in_array($file_ext, $allowed_extensions)) {
-                                                    // Handle error: Invalid file extension
-                                                }
+                                            // Get the file extension of the uploaded file
+                                            $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
-                                                // Set a maximum file size limit
-                                                $max_size = 5000000; // 5MB
-
-                                                // Check if the uploaded file size is within the limit
-                                                if ($file_size > $max_size) {
-                                                    // Handle error: File size too large
-                                                }
-
-                                                // Validate the uploaded file before storing it
-                                                $image_info = getimagesize($file_tmp);
-                                                if (!$image_info) {
-                                                    // Handle error: Invalid image file
-                                                }
-
-                                                // Generate a unique file name
-                                                $new_file_name_random = time() . "-" . $file_name;
-                                                $new_file_path = "../img/" . $new_file_name_random;
-
-                                                // Store the uploaded file
-                                                if (!move_uploaded_file($file_tmp, $new_file_path)) {
-                                                    // Handle error: Failed to store file
-                                                }
-
-                                                // Set principal image
-                                                $is_principal = ($i == 0) ? 1 : 0;
-                                                $image_p = ($is_principal == 1) ? "oui" : "non";
-
-                                                // Update the image table
-                                                if ($announcement_id !== null) {
-                                                    $sql = "UPDATE image SET ImageUrl=?, Image_P=? WHERE Announcement_ID=?";
-                                                    $stmt = mysqli_prepare($conn, $sql);
-                                                    mysqli_stmt_bind_param($stmt, "ssi", $new_file_path, $image_p, $announcement_id);
-                                                    mysqli_stmt_execute($stmt);
-                                                } else {
-                                                    $stmt = $conn->prepare("INSERT INTO image (`ImageUrl`,`Announcement_ID`,`Image_P`) VALUES (?, ?, ?)");
-                                                    $stmt->bind_param("sis", $new_file_path, $id, $image_p);
-                                                    $stmt->execute();
-                                                }
+                                            // Check if the uploaded file extension is allowed
+                                            if (!in_array($file_ext, $allowed_extensions)) {
+                                                // Handle error: Invalid file extension
                                             }
+
+                                            // Set a maximum file size limit
+                                            $max_size = 5000000; // 5MB
+
+                                            // Check if the uploaded file size is within the limit
+                                            if ($file_size > $max_size) {
+                                                // Handle error: File size too large
+                                            }
+
+                                            // Validate the uploaded file before storing it
+                                            $image_info = getimagesize($file_tmp);
+                                            if (!$image_info) {
+                                                // Handle error: Invalid image file
+                                            }
+
+                                            // Generate a unique file name
+                                            $new_file_name_random = time() . "-" . $file_name;
+                                            $new_file_path = "../img/" . $new_file_name_random;
+
+                                            // Store the uploaded file
+                                            if (!move_uploaded_file($file_tmp, $new_file_path)) {
+                                                // Handle error: Failed to store file
+                                            }
+
+                                            // Set principal image
+                                            if ($i == 0) {
+                                                $image_p = "oui";
+                                            } else {
+                                                $image_p = "non";
+                                            }
+
+                                            // Insert the image into the image table
+                                            $stmt = $conn->prepare("INSERT INTO image (`ImageUrl`,`Announcement_ID`,`Image_P`) VALUES (?, ?, ?)");
+                                            $stmt->bind_param("sis", $new_file_path, $id, $image_p);
+                                            $stmt->execute();
                                         }
                                       }
-                            }
+                                      
+                                              // // Update the image table with the new images
+                                              // if (isset($_FILES['images'])) {
+                                              //   $images = $_FILES['images'];
+                                              //   $file_count = count($images['name']);
+
+                                              //   for ($i = 0; $i < $file_count; $i++) {
+                                              //       $file_name = $images['name'][$i];
+                                              //       $file_tmp = $images['tmp_name'][$i];
+                                              //       $file_type = $images['type'][$i];
+                                              //       $file_size = $images['size'][$i];
+                                              //       $new_file_name = "default.jpg";
+
+                                              //       // Allowed file extensions
+                                              //       $allowed_extensions = array("jpg", "jpeg", "png", "gif");
+
+                                              //       // Get the file extension of the uploaded file
+                                              //       $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+                                              //       // Check if the uploaded file extension is allowed
+                                              //       if (!in_array($file_ext, $allowed_extensions)) {
+                                              //           // Handle error: Invalid file extension
+                                              //       }
+
+                                              //       // Set a maximum file size limit
+                                              //       $max_size = 5000000; // 5MB
+
+                                              //       // Check if the uploaded file size is within the limit
+                                              //       if ($file_size > $max_size) {
+                                              //           // Handle error: File size too large
+                                              //       }
+
+                                              //       // Validate the uploaded file before storing it
+                                              //       $image_info = getimagesize($file_tmp);
+                                              //       if (!$image_info) {
+                                              //           // Handle error: Invalid image file
+                                              //       }
+
+                                              //       // Generate a unique file name
+                                              //       $new_file_name_random = time() . "-" . $file_name;
+                                              //       $new_file_path = "../img/" . $new_file_name_random;
+
+                                              //       // Store the uploaded file
+                                              //       if (!move_uploaded_file($file_tmp, $new_file_path)) {
+                                              //           // Handle error: Failed to store file
+                                              //       }
+
+                                              //       // Set principal image
+                                              //      // Set principal image
+                                              //       if ($i == 0) {
+                                              //         $image_p = "oui";
+                                              //       } else {
+                                              //         $image_p = "non";
+                                              //       }
+                                              //       // Update the image table
+                                              //       if ($announcement_id !== null) {
+                                              //           $sql = "UPDATE image SET ImageUrl=?, Image_P=? WHERE Announcement_ID=?";
+                                              //           $stmt = mysqli_prepare($conn, $sql);
+                                              //           mysqli_stmt_bind_param($stmt, "ssi", $new_file_path, $image_p, $announcement_id);
+                                              //           mysqli_stmt_execute($stmt);
+                                              //       } else {
+                                              //           $stmt = $conn->prepare("INSERT INTO image (`ImageUrl`,`Announcement_ID`,`Image_P`) VALUES (?, ?, ?)");
+                                              //           $stmt->bind_param("sis", $new_file_path, $id, $image_p);
+                                              //           $stmt->execute();
+                                              //       }
+                                              //   }
+                                              // }
+                                        }
+                                    }
+                                 
                                // Get the announcement data from the database and display the form
                             $id = $_GET['id'];
                             $sql = "SELECT * FROM announcement WHERE Announcement_ID=$id";

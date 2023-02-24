@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>Dashboard Template · Bootstrap v5.3</title>
+    <title>Profile</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
@@ -20,6 +20,7 @@
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
+          
         }
       }
 
@@ -35,6 +36,8 @@
         flex-shrink: 0;
         width: 1.5rem;
         height: 100vh;
+      
+        
       }
 
       .bi {
@@ -220,6 +223,10 @@
                                     <div class="mt-5">
                                         <button type="button" id="update-btn" class="btn btn-secondary btn-fill btn-wd">Update Profile</button>
                                         <button type="submit" id="save-btn" class="btn btn-secondary btn-fill btn-wd" style="display: none;">Update Profile</button>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Launch demo modal
+                                        </button>
+
                                     </div>
                                 </form>
                             
@@ -231,7 +238,24 @@
         </div>
      </div>
  </div>
-      
+      <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       Your account will be deleted, are you sure you want to delete this account?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="delete-btn" class="btn btn-danger btn-fill btn-wd"> <a href="./delete-account.php" style="text-decoration : none; color: #fff; ">Delete Profile</a></button>
+      </div>
+    </div>
+  </div>
+</div>
     </main>
   </div>
 </div>
