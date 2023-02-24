@@ -82,9 +82,9 @@
     </div>
 </header>
 
-  <main>
+<main>
 
-  <section class="py-5 text-center container">
+    <section class="py-5 text-center container">
       <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
           <h1 class="font-weight-light">Experience Urban Living with Boulevard's Building Album</h1>
@@ -95,7 +95,7 @@
 
     <div class="album py-5 bg-light">
       <div class="container">
-        <section class="search-sec mb-5">
+        <section class="search-sec mb-2">
           <div class="container">
             <form action="" method="post" novalidate="novalidate">
               <div class="row">
@@ -108,7 +108,7 @@
                         <option value="vente">Sale</option>
                       </select>
                     </div>
-                      <div class="col-lg-2 col-md-6 col-sm-12 p-0">
+                    <div class="col-lg-2 col-md-6 col-sm-12 p-0">
                       <select name="type" class="form-control search-slt" id="exampleFormControlSelect1">
                         <option value="#">Type</option>
                         <option value="maison">Maison</option>
@@ -130,59 +130,73 @@
                      col-sm-12 p-0">
                       <button type="submit" class="btn btn-danger wrn-btn"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
                     </div>
+                    <div class="col-lg-3 col-md-6
+                     col-sm-12 p-0 mt-5">
+                        <button type="submit" class="btn btn-primary wrn-btn" name="sort_by" value="Prix">Trier par prix</button>
+                     </div>
+                     <div class="col-lg-4 col-md-6
+                     col-sm-12 p-0 mt-5"> 
+                        <button type="submit" class="btn btn-secondary wrn-btn" name="sort_by" value="DatePub">Trier par date de publication</button>
+                     </div>
                   </div>
                 </div>
               </div>
             </form>
           </div>
         </section>
-        <?php  
- // check if form was submitted and set filter conditions
- $filter_conditions = "";
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-   $type = $_POST["type"];
-   $min_price = $_POST["min_price"];
-   $max_price = $_POST["max_price"];
-   $category = $_POST['category'];
-   $ville = $_POST['Ville'];
+        <?php
+        // check if form was submitted and set filter conditions
+        $filter_conditions = "";
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+          $type = $_POST["type"];
+          $min_price = $_POST["min_price"];
+          $max_price = $_POST["max_price"];
+          $category = $_POST['category'];
+          $ville = $_POST['Ville'];
 
+          // build filter conditions
+          if ($type != "#") {
+            $filter_conditions .= " AND `Type`='$type'";
+          }
+          if ($min_price != "") {
+            $filter_conditions .= " AND `Prix`>='$min_price'";
+          }
+          if ($max_price != "") {
+            $filter_conditions .= " AND `Prix`<='$max_price'";
+          }
+          if ($category != "#") {
+            $filter_conditions .= " AND `Category` ='$category' ";
+          }
+          if ($ville != "") {
+            $filter_conditions .= " AND `Ville` = '$ville'";
+          }
+          if (isset($_POST['sort_by'])) {
+            $sortBy = $_POST['sort_by'];
+            // Requête pour récupérer les données triées
+            $filter_conditions .= "  ORDER BY $sortBy";
+          }
+       
+          
 
-   // build filter conditions
-   if ($type != "#") {
-     $filter_conditions .= " AND `Type`='$type'";
-   }
-   if ($min_price != "") {
-     $filter_conditions .= " AND `Prix`>='$min_price'";
-   }
-  if ($max_price != "") {
-     $filter_conditions .= " AND `Prix`<='$max_price'";
-   }
-   if($category != "#"){
-    $filter_conditions .= " AND `Category` ='$category' ";
-   }
-   if( $ville != ""){
-    $filter_conditions .= " AND `Ville` = '$ville'";
-   
- }
- }
- try {
-   $conn = new PDO("mysql:host=localhost;dbname=gestion-des-annonces-d-une-agence-immobili-re;port=3306;charset=UTF8", 'root', '');
-   // set the PDO error mode to exception
+        }
+        try {
+          $conn = new PDO("mysql:host=localhost;dbname=gestion-des-annonces-d-une-agence-immobili-re;port=3306;charset=UTF8", 'root', '');
+          // set the PDO error mode to exception
 
-   // modify query to include filter conditions
-   $content = $conn->query("SELECT `announcement`.`Announcement_ID`, `Titre`, `Prix`, `Details`, `Type`, `ImageUrl` FROM `announcement`, `image` WHERE `announcement`.`Announcement_ID`=`image`.`Announcement_ID` AND `Image_P`='oui'$filter_conditions");
+          // modify query to include filter conditions
+          $content = $conn->query("SELECT `announcement`.`Announcement_ID`, `Titre`, `Prix`, `Details`, `Type`, `ImageUrl` FROM `announcement`, `image` WHERE `announcement`.`Announcement_ID`=`image`.`Announcement_ID` AND `Image_P`='oui'$filter_conditions");
 
-   echo "<div class='container'>";
-   echo "<div class='row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3'>";
-   while ($ligne = $content->fetch()) {
-     echo '  <div class="col">
+          echo "<div class='container'>";
+          echo "<div class='row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3'>";
+          while ($ligne = $content->fetch()) {
+            echo '  <div class="col">
      <div class="card shadow-sm">
          <img id="card_img" src="' . $ligne['ImageUrl'] . '" alt="' . $ligne['Titre'] . '" width="100%" height="225" fill="none">
          <div class="card-body">
              <h4 id="card_title">' . $ligne['Titre'] . '</h4>
              <h5 id="card_price" class="text-danger">' . $ligne['Prix'] . ' MAD</h5>
              <p id="card_text" class="card-text">Card details</p>
-             <h5 id="annonce-type" class="text-danger">POUR : ' . $ligne['Type'] . '</h5>
+             <h5 id="annonce-type" class="text-danger"> ' . $ligne['Type'] . '</h5>
              <div class="d-flex justify-content-between align-items-center">
                  <div class="btn-group">
                      <a href="details.php?id=' . $ligne['Announcement_ID'] . '" id="edit" class="btn btn-sm btn-outline-secondary">Details</a>
@@ -191,11 +205,11 @@
          </div>
      </div>
  </div>';
-   }
- } catch (PDOException $e) {
-   echo "Error: " . $e->getMessage();
- }
-  ?>
+          }
+        } catch (PDOException $e) {
+          echo "Error: " . $e->getMessage();
+        }
+        ?>
 
         <!-- pub modal -->
         <div class="modal fade" id="pub_modal" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
