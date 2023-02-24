@@ -231,7 +231,8 @@
                                   </div>
                                   <div class="col-md-12">
                                     <label for="validationCustom03" class="form-label">Details</label>
-                                    <input name="Details" type="text" class="form-control" id="validationCustom03" required>
+                                    <!-- <input name="Details" type="text" class="form-control" id="validationCustom03" required> -->
+                                    <textarea name="Details" type="text" class="form-control" id="validationCustom03" required  aria-label="With textarea"></textarea>
                                   </div>
                                   <div class="col-12">
                                     <div class="form-check">
