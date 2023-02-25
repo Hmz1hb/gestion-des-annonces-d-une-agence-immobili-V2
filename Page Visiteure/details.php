@@ -170,7 +170,10 @@ if ($conn->connect_error) {
 }
 
 $id = $_GET['id'];
-$sql = "SELECT * FROM announcement WHERE Announcement_ID = $id";
+$sql = "SELECT a.*, m.TelephoneM
+        FROM announcement a
+        INNER JOIN member m ON a.Membre_ID = m.Membre_ID
+        WHERE a.Announcement_ID = $id";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -179,6 +182,7 @@ if ($result->num_rows > 0) {
     $details = $row['Details'] ?? '';
     $prix = $row['Prix'] ?? '';
     $adresse = $row['Adresse'] ?? '';
+    $telephone = $row['TelephoneM'] ?? '';
 
     echo '<div class="album py-5 bg-light">
         <div class="container">
@@ -187,11 +191,23 @@ if ($result->num_rows > 0) {
                     <h2 style="color: #2d2d2d;">'.$titre.'</h2>
                     <p class="excert mt-5">'.$details.'</p>
                     <h5 class="text-primary-emphasis">'.$adresse.'</h5>
-                    <h5 class="text-danger mt-5">PRIX '.$prix.' DH</h5> 
+                    <h5 class="text-danger mt-5">PRIX '.$prix.' DH</h5>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    contacter 
+                  </button>
                 </div>
             </div>
         </div>
-    </div>';
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+      <h5 class="">Numero : '.$telephone.'</h5>
+      </div>
+    </div>
+  </div>
+</div>';
   }
 } else {
   echo "0 results";
@@ -199,23 +215,6 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
-
-
-    <!-- <div class="album py-5 bg-light">
-      <div class="container">
-      <div class="single-post">
-      <div class="blog_details">
-        <h2 style="color: #2d2d2d;">Announce title</h2>
-       <p class="excert mt-5">
-        Announce details here
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla aliquid eos cupiditate optio, quia accusantium vel illum expedita cum delectus ea dolorum quis natus, nobis deleniti, ipsam iste! Odio, reiciendis!
-       </p>
-      <h5 class="text-primary-emphasis">Address</h5>
-      <h5 class="text-danger mt-5">PRIX DH</h5>
-      </div>
-      </div>
-      </div>
-    </div> -->
   </main>
   <footer class="text-muted py-5">
     <div class="container">

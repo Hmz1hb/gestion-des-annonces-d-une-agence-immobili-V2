@@ -224,7 +224,7 @@
                                         <button type="button" id="update-btn" class="btn btn-secondary btn-fill btn-wd">Update Profile</button>
                                         <button type="submit" id="save-btn" class="btn btn-secondary btn-fill btn-wd" style="display: none;">Update Profile</button>
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        Launch demo modal
+                                        Delete Account</button>
                                         </button>
 
                                     </div>
